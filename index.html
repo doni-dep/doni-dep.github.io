@@ -2,10 +2,218 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Мой сайт</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziros — моя страница</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 15px 35px rgba(245, 87, 108, 0.4);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #c4b5fd;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .bio {
+            font-size: 18px;
+            color: #e2e8f0;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            opacity: 0.9;
+        }
+
+        .bio span {
+            color: #f093fb;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            margin: 0 auto 30px;
+            border-radius: 10px;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+            border-color: #f093fb;
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.25);
+        }
+
+        .social-link i {
+            font-size: 22px;
+        }
+
+        .social-link.tg:hover {
+            border-color: #0088cc;
+            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3);
+        }
+        .social-link.inst:hover {
+            border-color: #e4405f;
+            box-shadow: 0 8px 25px rgba(228, 64, 95, 0.3);
+        }
+        .social-link.yt:hover {
+            border-color: #ff0000;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+        }
+        .social-link.email:hover {
+            border-color: #fbbf24;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .bio {
+                font-size: 16px;
+            }
+            .social-link {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 55px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Привет, я Ziros!</h1>
-    <p>Мой первый сайт на GitHub Pages</p>
+
+    <div class="card">
+        <!-- Аватарка (круг с буквами) -->
+        <div class="avatar">Z</div>
+
+        <!-- Имя -->
+        <h1>Ziros</h1>
+        <p class="subtitle">⚡ Создаю крутые штуки в интернете</p>
+
+        <!-- О себе -->
+        <div class="divider"></div>
+        <p class="bio">
+            Привет! Меня зовут <span>Ziros</span>. Я увлекаюсь веб-разработкой, 
+            технологиями и всем, что связано с интернетом. 
+            Создаю сайты, изучаю новое и делюсь опытом. 
+            <br><br>
+            🚀 <span>Добро пожаловать на мою страницу!</span>
+        </p>
+
+        <div class="divider"></div>
+
+        <!-- Ссылки на соцсети (замени ссылки на свои!) -->
+        <div class="socials">
+            <a href="https://t.me/ziros" class="social-link tg" target="_blank">
+                💬 Telegram
+            </a>
+            <a href="https://instagram.com/ziros" class="social-link inst" target="_blank">
+                📷 Instagram
+            </a>
+            <a href="https://youtube.com/@ziros" class="social-link yt" target="_blank">
+                ▶️ YouTube
+            </a>
+            <a href="mailto:ziros@example.com" class="social-link email" target="_blank">
+                ✉️ Email
+            </a>
+        </div>
+
+        <p class="footer-text">© 2026 Ziros — сделано на Netlify 🚀</p>
+    </div>
+
 </body>
 </html>
