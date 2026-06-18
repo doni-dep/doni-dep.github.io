@@ -23,32 +23,39 @@
             padding: 20px;
             position: relative;
             overflow-x: hidden;
+            transition: background 0.4s, color 0.4s;
+        }
+        body.light {
+            background: #f0f0f5;
+            color: #111;
         }
 
         /* ===== ФОН ===== */
-        .bg-glow {
+        .bg-glow, .bg-glow-2 {
             position: fixed;
+            border-radius: 50%;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        body.light .bg-glow { opacity: 0.3; }
+        body.light .bg-glow-2 { opacity: 0.2; }
+
+        .bg-glow {
             top: -30%;
             left: -20%;
             width: 70%;
             height: 80%;
             background: radial-gradient(circle, rgba(88, 50, 255, 0.2), transparent 70%);
-            border-radius: 50%;
-            animation: floatGlow 10s ease-in-out infinite alternate;
-            z-index: 0;
-            pointer-events: none;
         }
         .bg-glow-2 {
-            position: fixed;
             bottom: -30%;
             right: -20%;
             width: 70%;
             height: 80%;
             background: radial-gradient(circle, rgba(255, 0, 200, 0.15), transparent 70%);
-            border-radius: 50%;
-            animation: floatGlow 12s ease-in-out infinite alternate-reverse;
-            z-index: 0;
-            pointer-events: none;
+            animation-delay: 2s;
         }
         @keyframes floatGlow {
             0% { transform: translate(0,0) scale(1); }
@@ -58,22 +65,19 @@
         /* ===== ЗВЁЗДЫ ===== */
         .stars {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
         }
         .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 2px; height: 2px;
             background: #fff;
             border-radius: 50%;
             animation: twinkle 3s ease-in-out infinite alternate;
         }
+        body.light .star { background: #888; }
         @keyframes twinkle {
             0% { opacity: 0.2; }
             100% { opacity: 1; }
@@ -91,6 +95,13 @@
             padding: 40px 38px;
             border: 1px solid rgba(255,255,255,0.04);
             box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+        }
+        body.light .card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(24px);
+            border-color: rgba(0,0,0,0.04);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.05);
         }
 
         /* ===== ТОСТЫ ===== */
@@ -119,9 +130,12 @@
             align-items: center;
             gap: 10px;
         }
-        .toast.hide {
-            animation: slideOut 0.4s ease forwards;
+        body.light .toast {
+            background: rgba(255,255,255,0.7);
+            color: #111;
+            border-color: rgba(0,0,0,0.04);
         }
+        .toast.hide { animation: slideOut 0.4s ease forwards; }
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(40px); }
             to { opacity: 1; transform: translateX(0); }
@@ -150,7 +164,10 @@
             margin-bottom: 28px;
             padding-bottom: 18px;
             border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: border-color 0.4s;
         }
+        body.light .header { border-bottom-color: rgba(0,0,0,0.04); }
+
         .logo {
             font-size: 24px;
             font-weight: 700;
@@ -159,13 +176,17 @@
             -webkit-text-fill-color: transparent;
         }
         .logo span { -webkit-text-fill-color: rgba(255,255,255,0.15); }
+        body.light .logo span { -webkit-text-fill-color: rgba(0,0,0,0.2); }
+
         .user-area {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .user-name { color: rgba(255,255,255,0.4); font-size: 14px; }
-        .btn-logout {
+        .user-name { color: rgba(255,255,255,0.4); font-size: 14px; transition: color 0.4s; }
+        body.light .user-name { color: rgba(0,0,0,0.4); }
+
+        .btn-logout, .btn-theme {
             padding: 6px 16px;
             border-radius: 30px;
             border: 1px solid rgba(255,255,255,0.04);
@@ -176,9 +197,18 @@
             transition: 0.3s;
             font-family: inherit;
         }
-        .btn-logout:hover {
+        body.light .btn-logout, body.light .btn-theme {
+            border-color: rgba(0,0,0,0.04);
+            color: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.02);
+        }
+        .btn-logout:hover, .btn-theme:hover {
             background: rgba(255,255,255,0.06);
             color: #fff;
+        }
+        body.light .btn-logout:hover, body.light .btn-theme:hover {
+            background: rgba(0,0,0,0.04);
+            color: #000;
         }
 
         /* ===== МЕНЮ ===== */
@@ -189,7 +219,10 @@
             margin-bottom: 28px;
             padding-bottom: 16px;
             border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: border-color 0.4s;
         }
+        body.light .nav { border-bottom-color: rgba(0,0,0,0.03); }
+
         .nav-btn {
             padding: 8px 20px;
             border-radius: 40px;
@@ -202,10 +235,16 @@
             font-family: inherit;
             font-weight: 500;
         }
+        body.light .nav-btn { color: rgba(0,0,0,0.3); }
         .nav-btn:hover { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.03); }
+        body.light .nav-btn:hover { color: rgba(0,0,0,0.7); background: rgba(0,0,0,0.02); }
         .nav-btn.active {
             background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(124,58,237,0.15));
             color: #a78bfa;
+        }
+        body.light .nav-btn.active {
+            background: rgba(124,58,237,0.1);
+            color: #7c3aed;
         }
 
         /* ===== СТРАНИЦЫ ===== */
@@ -232,10 +271,47 @@
             color: #fff;
             margin: 0 auto 18px;
             box-shadow: 0 15px 50px rgba(124,58,237,0.25);
+            transition: box-shadow 0.4s;
         }
-        .greeting { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .subtitle { font-size: 18px; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
-        .desc { font-size: 16px; color: rgba(255,255,255,0.45); max-width: 520px; margin: 0 auto 24px; line-height: 1.7; }
+        body.light .avatar { box-shadow: 0 15px 50px rgba(124,58,237,0.1); }
+
+        .greeting { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 4px; transition: color 0.4s; }
+        body.light .greeting { color: #111; }
+
+        .subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 16px;
+            transition: color 0.4s;
+        }
+        body.light .subtitle { color: rgba(0,0,0,0.4); }
+
+        .desc {
+            font-size: 16px;
+            color: rgba(255,255,255,0.45);
+            max-width: 520px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+            transition: color 0.4s;
+        }
+        body.light .desc { color: rgba(0,0,0,0.5); }
+
+        /* ===== АНИМИРОВАННЫЙ ТЕКСТ ===== */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #a78bfa;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ===== КНОПКИ ===== */
         .actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .btn-primary, .btn-secondary {
             padding: 12px 32px;
@@ -258,7 +334,13 @@
             color: rgba(255,255,255,0.5);
             border: 1px solid rgba(255,255,255,0.06);
         }
+        body.light .btn-secondary {
+            background: rgba(0,0,0,0.02);
+            color: rgba(0,0,0,0.4);
+            border-color: rgba(0,0,0,0.06);
+        }
         .btn-secondary:hover { background: rgba(255,255,255,0.04); color: #fff; }
+        body.light .btn-secondary:hover { background: rgba(0,0,0,0.04); color: #000; }
 
         /* ===== ОБО МНЕ ===== */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -268,12 +350,29 @@
             border-radius: 20px;
             padding: 20px 22px;
             border: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light .info-block {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.03);
         }
         .info-block h4 { color: #a78bfa; font-size: 14px; text-transform: uppercase; margin-bottom: 10px; }
         .info-block ul { list-style: none; }
-        .info-block li { padding: 5px 0; color: rgba(255,255,255,0.55); font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .info-block li {
+            padding: 5px 0;
+            color: rgba(255,255,255,0.55);
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            transition: color 0.4s, border-color 0.4s;
+        }
+        body.light .info-block li {
+            color: rgba(0,0,0,0.5);
+            border-bottom-color: rgba(0,0,0,0.02);
+        }
         .info-block li:last-child { border: none; }
         .info-block li span { color: #fff; }
+        body.light .info-block li span { color: #000; }
+
         .tag {
             display: inline-block;
             padding: 4px 14px;
@@ -283,6 +382,10 @@
             font-size: 12px;
             margin: 3px 4px 3px 0;
             border: 1px solid rgba(167,139,250,0.06);
+        }
+        body.light .tag {
+            background: rgba(124,58,237,0.05);
+            border-color: rgba(124,58,237,0.1);
         }
 
         /* ===== ПРОЕКТЫ ===== */
@@ -299,10 +402,17 @@
             border: 1px solid rgba(255,255,255,0.03);
             transition: 0.3s;
         }
+        body.light .project-card {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.03);
+        }
         .project-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-4px); }
+        body.light .project-card:hover { background: rgba(0,0,0,0.04); }
         .project-card .icon { font-size: 36px; margin-bottom: 8px; }
-        .project-card h4 { font-size: 16px; color: #fff; }
-        .project-card p { font-size: 13px; color: rgba(255,255,255,0.3); }
+        .project-card h4 { font-size: 16px; color: #fff; transition: color 0.4s; }
+        body.light .project-card h4 { color: #111; }
+        .project-card p { font-size: 13px; color: rgba(255,255,255,0.3); transition: color 0.4s; }
+        body.light .project-card p { color: rgba(0,0,0,0.3); }
 
         /* ===== БЛОГ ===== */
         .blog-item {
@@ -311,24 +421,26 @@
             padding: 16px 20px;
             margin-bottom: 10px;
             border-left: 3px solid #7c3aed;
-            transition: 0.3s;
+            transition: background 0.3s;
         }
+        body.light .blog-item { background: rgba(0,0,0,0.02); }
         .blog-item:hover { background: rgba(255,255,255,0.03); }
+        body.light .blog-item:hover { background: rgba(0,0,0,0.03); }
         .blog-item .date { font-size: 11px; color: rgba(255,255,255,0.2); }
-        .blog-item h4 { font-size: 16px; color: #fff; margin: 3px 0; }
-        .blog-item p { font-size: 14px; color: rgba(255,255,255,0.35); }
+        body.light .blog-item .date { color: rgba(0,0,0,0.2); }
+        .blog-item h4 { font-size: 16px; color: #fff; margin: 3px 0; transition: color 0.4s; }
+        body.light .blog-item h4 { color: #111; }
+        .blog-item p { font-size: 14px; color: rgba(255,255,255,0.35); transition: color 0.4s; }
+        body.light .blog-item p { color: rgba(0,0,0,0.35); }
 
-        /* ===== ГАЛЕРЕЯ-СЛАЙДЕР ===== */
+        /* ===== ГАЛЕРЕЯ ===== */
         .slider-container {
             position: relative;
             overflow: hidden;
             border-radius: 20px;
             margin: 10px 0;
         }
-        .slider-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
+        .slider-track { display: flex; transition: transform 0.5s ease; }
         .slider-slide {
             min-width: 100%;
             aspect-ratio: 16/9;
@@ -339,6 +451,10 @@
             font-size: 60px;
             border-radius: 20px;
             color: rgba(255,255,255,0.2);
+            transition: background 0.4s;
+        }
+        body.light .slider-slide {
+            background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(167,139,250,0.02));
         }
         .slider-btn {
             position: absolute;
@@ -356,7 +472,9 @@
             font-family: inherit;
             backdrop-filter: blur(8px);
         }
+        body.light .slider-btn { color: #111; border-color: rgba(0,0,0,0.06); }
         .slider-btn:hover { background: rgba(255,255,255,0.1); }
+        body.light .slider-btn:hover { background: rgba(0,0,0,0.05); }
         .slider-btn.prev { left: 10px; }
         .slider-btn.next { right: 10px; }
         .slider-dots {
@@ -374,6 +492,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
+        body.light .slider-dot { background: rgba(0,0,0,0.1); }
         .slider-dot.active { background: #7c3aed; width: 20px; border-radius: 10px; }
 
         /* ===== ИГРА ===== */
@@ -383,13 +502,20 @@
             background: rgba(255,255,255,0.02);
             border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light .game-area {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.03);
         }
         .game-score {
             font-size: 48px;
             font-weight: 700;
             color: #fff;
             margin: 10px 0;
+            transition: color 0.4s;
         }
+        body.light .game-score { color: #111; }
         .game-btn {
             padding: 16px 50px;
             border-radius: 60px;
@@ -421,6 +547,11 @@
             font-size: 13px;
             transition: 0.3s;
         }
+        body.light .achievement {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.04);
+            color: rgba(0,0,0,0.3);
+        }
         .achievement.unlocked {
             background: rgba(167,139,250,0.15);
             border-color: rgba(167,139,250,0.2);
@@ -434,10 +565,17 @@
             padding: 20px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.4s, border-color 0.4s;
         }
-        .weather-city { font-size: 20px; color: #fff; }
+        body.light .weather-widget {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.03);
+        }
+        .weather-city { font-size: 20px; color: #fff; transition: color 0.4s; }
+        body.light .weather-city { color: #111; }
         .weather-temp { font-size: 48px; font-weight: 700; color: #a78bfa; }
-        .weather-desc { color: rgba(255,255,255,0.4); }
+        .weather-desc { color: rgba(255,255,255,0.4); transition: color 0.4s; }
+        body.light .weather-desc { color: rgba(0,0,0,0.4); }
 
         /* ===== КОНТАКТЫ ===== */
         .social-wrap {
@@ -460,7 +598,13 @@
             transition: 0.3s;
             font-size: 14px;
         }
+        body.light .social-link {
+            background: rgba(0,0,0,0.02);
+            color: rgba(0,0,0,0.4);
+            border-color: rgba(0,0,0,0.04);
+        }
         .social-link:hover { background: rgba(255,255,255,0.04); color: #fff; transform: translateY(-3px); }
+        body.light .social-link:hover { background: rgba(0,0,0,0.04); color: #000; }
         .social-link.tg:hover { border-color: #0088cc; color: #0088cc; }
         .social-link.inst:hover { border-color: #e4405f; color: #e4405f; }
         .social-link.yt:hover { border-color: #ff0000; color: #ff0000; }
@@ -473,13 +617,15 @@
             text-align: center;
             font-size: 12px;
             color: rgba(255,255,255,0.1);
+            transition: border-color 0.4s, color 0.4s;
+        }
+        body.light .footer {
+            border-top-color: rgba(0,0,0,0.03);
+            color: rgba(0,0,0,0.1);
         }
 
         /* ===== АДМИНКА ===== */
-        .admin-login {
-            text-align: center;
-            padding: 20px 0;
-        }
+        .admin-login { text-align: center; padding: 20px 0; }
         .admin-login input {
             padding: 10px 16px;
             border-radius: 30px;
@@ -490,6 +636,12 @@
             outline: none;
             font-family: inherit;
             width: 200px;
+            transition: border-color 0.4s, background 0.4s, color 0.4s;
+        }
+        body.light .admin-login input {
+            border-color: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.02);
+            color: #000;
         }
         .admin-login button {
             padding: 10px 24px;
@@ -502,18 +654,22 @@
             font-family: inherit;
             margin-left: 10px;
         }
-        .admin-content {
-            display: none;
-        }
+        .admin-content { display: none; }
         .admin-content .stat {
             background: rgba(255,255,255,0.02);
             border-radius: 16px;
             padding: 16px 20px;
             margin-bottom: 16px;
             border: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light .admin-content .stat {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.03);
         }
         .admin-content .stat h4 { color: #a78bfa; margin-bottom: 8px; }
-        .admin-content .stat p { font-size: 18px; color: #fff; }
+        .admin-content .stat p { font-size: 18px; color: #fff; transition: color 0.4s; }
+        body.light .admin-content .stat p { color: #111; }
         .admin-content textarea {
             width: 100%;
             padding: 12px;
@@ -526,6 +682,12 @@
             resize: vertical;
             min-height: 80px;
             outline: none;
+            transition: border-color 0.4s, background 0.4s, color 0.4s;
+        }
+        body.light .admin-content textarea {
+            border-color: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.02);
+            color: #000;
         }
         .admin-content .send-btn {
             padding: 10px 30px;
@@ -552,10 +714,17 @@
             padding: 44px 34px;
             border: 1px solid rgba(255,255,255,0.04);
             text-align: center;
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light .auth {
+            background: rgba(255,255,255,0.7);
+            border-color: rgba(0,0,0,0.04);
         }
         .auth.hidden { display: none; }
-        .auth h1 { font-size: 32px; color: #fff; margin-bottom: 4px; }
-        .auth .sub { color: rgba(255,255,255,0.3); font-size: 16px; margin-bottom: 28px; }
+        .auth h1 { font-size: 32px; color: #fff; margin-bottom: 4px; transition: color 0.4s; }
+        body.light .auth h1 { color: #111; }
+        .auth .sub { color: rgba(255,255,255,0.3); font-size: 16px; margin-bottom: 28px; transition: color 0.4s; }
+        body.light .auth .sub { color: rgba(0,0,0,0.3); }
         .auth input {
             width: 100%;
             padding: 14px 18px;
@@ -569,8 +738,15 @@
             font-family: inherit;
             transition: 0.3s;
         }
+        body.light .auth input {
+            border-color: rgba(0,0,0,0.04);
+            background: rgba(0,0,0,0.02);
+            color: #000;
+        }
         .auth input::placeholder { color: rgba(255,255,255,0.15); }
+        body.light .auth input::placeholder { color: rgba(0,0,0,0.15); }
         .auth input:focus { border-color: rgba(167,139,250,0.3); background: rgba(255,255,255,0.04); }
+        body.light .auth input:focus { border-color: rgba(124,58,237,0.3); }
         .auth .btn-auth {
             width: 100%;
             padding: 14px;
@@ -591,6 +767,66 @@
 
         .main-wrap { display: none; }
         .main-wrap.show { display: block; width: 100%; max-width: 1000px; }
+
+        /* ===== КНОПКА НАВЕРХ ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        body.light .scroll-top {
+            border-color: rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.6);
+            color: #000;
+        }
+        .scroll-top:hover {
+            transform: scale(1.1);
+            background: rgba(124,58,237,0.2);
+        }
+        .scroll-top.show { display: flex; }
+
+        /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        body.light .music-btn {
+            border-color: rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.6);
+            color: #000;
+        }
+        .music-btn:hover { transform: scale(1.1); background: rgba(124,58,237,0.2); }
 
         /* ===== АНИМАЦИИ ПРИ СКРОЛЛЕ ===== */
         .scroll-animate {
@@ -622,6 +858,15 @@
     <!-- ТОСТЫ -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- КНОПКА НАВЕРХ -->
+    <button class="scroll-top" id="scrollTopBtn">⬆</button>
+
+    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (фоновая музыка) -->
+    <button class="music-btn" id="musicBtn">🔇</button>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- РЕГИСТРАЦИЯ -->
     <div class="auth" id="authBox">
         <h1>✦ Привет</h1>
@@ -641,6 +886,7 @@
                 <div class="logo">Ziros<span>.dev</span></div>
                 <div class="user-area">
                     <span class="user-name" id="headerName">Ziros</span>
+                    <button class="btn-theme" id="themeBtn">🌙</button>
                     <button class="btn-logout" id="logoutBtn">Выйти</button>
                 </div>
             </div>
@@ -664,7 +910,9 @@
             <div class="page active" id="page-home">
                 <div class="hero">
                     <div class="avatar">Z</div>
-                    <div class="greeting" id="heroName">Привет, я Ziros</div>
+                    <div class="greeting">
+                        <span id="typingText"></span><span class="typing-cursor"></span>
+                    </div>
                     <div class="subtitle">⚡ Создаю цифровые продукты</div>
                     <div class="desc scroll-animate">Это моё личное пространство. Здесь я показываю проекты, делюсь мыслями и вдохновляюсь новым.</div>
                     <div class="actions">
@@ -676,7 +924,7 @@
 
             <!-- ОБО МНЕ -->
             <div class="page" id="page-about">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Обо мне</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">Обо мне</h3>
                 <div class="grid-2">
                     <div class="info-block scroll-animate"><h4>Основное</h4><ul><li>👤 <span id="aboutName">Ziros</span></li><li>📍 Бишкек</li><li>🎂 20 лет</li><li>💼 Веб-разработчик</li></ul></div>
                     <div class="info-block scroll-animate"><h4>Навыки</h4><div><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">Python</span><span class="tag">Git</span><span class="tag">Netlify</span></div></div>
@@ -687,7 +935,7 @@
 
             <!-- ПРОЕКТЫ -->
             <div class="page" id="page-projects">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Проекты</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">Проекты</h3>
                 <div class="project-grid">
                     <div class="project-card scroll-animate"><div class="icon">🌐</div><h4>Этот сайт</h4><p>Портфолио на Netlify</p></div>
                     <div class="project-card scroll-animate"><div class="icon">🤖</div><h4>Telegram-бот</h4><p>Бот с функциями</p></div>
@@ -698,15 +946,15 @@
 
             <!-- БЛОГ -->
             <div class="page" id="page-blog">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Заметки</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">Заметки</h3>
                 <div class="blog-item scroll-animate"><div class="date">Сегодня</div><h4>Создал портфолио!</h4><p>Запустил сайт с крутым дизайном</p></div>
                 <div class="blog-item scroll-animate"><div class="date">Вчера</div><h4>Изучаю JS</h4><p>Пишу функции, работаю с DOM</p></div>
                 <div class="blog-item scroll-animate"><div class="date">2 дня назад</div><h4>Telegram-бот готов</h4><p>Бот отвечает на команды</p></div>
             </div>
 
-            <!-- ГАЛЕРЕЯ (СЛАЙДЕР) -->
+            <!-- ГАЛЕРЕЯ -->
             <div class="page" id="page-gallery">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Галерея</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">Галерея</h3>
                 <div class="slider-container scroll-animate">
                     <div class="slider-track" id="sliderTrack">
                         <div class="slider-slide">🌌 Космос</div>
@@ -721,9 +969,9 @@
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
 
-            <!-- ИГРА (КЛИКЕР) -->
+            <!-- ИГРА -->
             <div class="page" id="page-game">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">🎮 Кликер</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">🎮 Кликер</h3>
                 <div class="game-area scroll-animate">
                     <div class="game-score" id="gameScore">0</div>
                     <button class="game-btn" id="gameBtn">👆 Нажми!</button>
@@ -738,7 +986,7 @@
 
             <!-- ПОГОДА -->
             <div class="page" id="page-weather">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">🌤 Погода</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">🌤 Погода</h3>
                 <div class="weather-widget scroll-animate" id="weatherWidget">
                     <div class="weather-city" id="weatherCity">Бишкек</div>
                     <div class="weather-temp" id="weatherTemp">--°C</div>
@@ -748,7 +996,7 @@
 
             <!-- КОНТАКТЫ -->
             <div class="page" id="page-contacts">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:4px;">Контакты</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:4px;">Контакты</h3>
                 <p style="color:rgba(255,255,255,0.25);margin-bottom:12px;">Свяжись со мной</p>
                 <div class="social-wrap">
                     <a href="https://t.me/ZiRO" class="social-link tg" target="_blank">💬 Telegram</a>
@@ -758,9 +1006,9 @@
                 </div>
             </div>
 
-            <!-- ===== АДМИНКА ===== -->
+            <!-- АДМИНКА -->
             <div class="page" id="page-admin">
-                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">🔐 Админ-панель</h3>
+                <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">🔐 Админ-панель</h3>
                 <div class="admin-login" id="adminLogin">
                     <input type="password" id="adminPassword" placeholder="Введите пароль" />
                     <button id="adminLoginBtn">Войти</button>
@@ -769,21 +1017,16 @@
                 <div class="admin-content" id="adminContent">
                     <div class="stat">
                         <h4>👥 Онлайн сейчас</h4>
-                        <p>
-                            <!-- Виджет онлайн-счётчика от Whos.amung.us -->
-                            <script type="text/javascript" src="//whos.amung.us/pingjs/?k=your_widget_key&t=Ziros%20Site" defer></script>
-                            <span id="whos-amung-us">Загрузка...</span>
-                        </p>
+                        <p><span id="whos-amung-us">Загрузка...</span></p>
                     </div>
                     <div class="stat">
-                        <h4>📊 Зарегистрировано пользователей (локально)</h4>
+                        <h4>📊 Зарегистрировано (локально)</h4>
                         <p id="registeredCount">0</p>
-                        <p style="font-size:12px;color:rgba(255,255,255,0.3);">*Учитываются только те, кто вводил имя на этом устройстве</p>
+                        <p style="font-size:12px;color:rgba(255,255,255,0.3);">*только на этом устройстве</p>
                     </div>
                     <div class="stat">
-                        <h4>✉️ Отправить анонимное сообщение всем</h4>
-                        <p style="font-size:14px;color:rgba(255,255,255,0.4);">Сообщение придёт вам на почту (через Formspree)</p>
-                        <textarea id="adminMessage" placeholder="Текст сообщения..."></textarea>
+                        <h4>✉️ Отправить анонимное сообщение</h4>
+                        <textarea id="adminMessage" placeholder="Текст..."></textarea>
                         <button class="send-btn" id="adminSendBtn">Отправить</button>
                         <p id="adminSendResult" style="margin-top:8px;color:#a78bfa;"></p>
                     </div>
@@ -861,10 +1104,8 @@
                 if (name && email) {
                     authBox.classList.add('hidden');
                     mainWrap.classList.add('show');
-                    if (heroName) heroName.textContent = 'Привет, я ' + name;
                     if (aboutName) aboutName.textContent = name;
                     if (headerName) headerName.textContent = name;
-                    // Обновляем счётчик зарегистрированных (локальный)
                     updateRegisteredCount();
                     setTimeout(() => showToast('С возвращением, ' + name + '!', '👤'), 500);
                 } else {
@@ -874,7 +1115,6 @@
             }
 
             function updateRegisteredCount() {
-                // Считаем, сколько раз сохранялись данные (это не глобально)
                 let count = localStorage.getItem('registeredCount') || 0;
                 document.getElementById('registeredCount').textContent = count;
             }
@@ -882,7 +1122,6 @@
             function saveUser(name, email) {
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userEmail', email);
-                // Увеличиваем счётчик регистраций (локальный)
                 let count = parseInt(localStorage.getItem('registeredCount') || 0) + 1;
                 localStorage.setItem('registeredCount', count);
                 checkUser();
@@ -958,7 +1197,25 @@
         });
 
         // =============================================
-        // 5. СЛАЙДЕР
+        // 5. АНИМИРОВАННЫЙ ТЕКСТ (печатающийся)
+        // =============================================
+        (function() {
+            const text = "Привет, я Ziros";
+            let index = 0;
+            const span = document.getElementById('typingText');
+            function type() {
+                if (index < text.length) {
+                    span.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100);
+                }
+            }
+            // Запускаем через 0.5 секунды после загрузки
+            setTimeout(type, 500);
+        })();
+
+        // =============================================
+        // 6. СЛАЙДЕР
         // =============================================
         (function() {
             const track = document.getElementById('sliderTrack');
@@ -995,7 +1252,7 @@
         })();
 
         // =============================================
-        // 6. ИГРА (КЛИКЕР)
+        // 7. ИГРА
         // =============================================
         (function() {
             let score = 0;
@@ -1037,14 +1294,13 @@
         })();
 
         // =============================================
-        // 7. ПОГОДА (БИШКЕК)
+        // 8. ПОГОДА
         // =============================================
         (function() {
             const city = 'Bishkek';
             const tempEl = document.getElementById('weatherTemp');
             const descEl = document.getElementById('weatherDesc');
             const cityEl = document.getElementById('weatherCity');
-
             cityEl.textContent = 'Бишкек';
 
             fetch('https://wttr.in/' + city + '?format=%t+%c&lang=ru')
@@ -1064,7 +1320,7 @@
         })();
 
         // =============================================
-        // 8. АНИМАЦИИ ПРИ СКРОЛЛЕ
+        // 9. АНИМАЦИИ ПРИ СКРОЛЛЕ
         // =============================================
         (function() {
             const elements = document.querySelectorAll('.scroll-animate');
@@ -1079,7 +1335,7 @@
         })();
 
         // =============================================
-        // 9. АДМИНКА
+        // 10. АДМИНКА
         // =============================================
         (function() {
             const adminLogin = document.getElementById('adminLogin');
@@ -1091,10 +1347,8 @@
             const adminMessage = document.getElementById('adminMessage');
             const adminSendResult = document.getElementById('adminSendResult');
 
-            // Пароль (можешь сменить)
             const ADMIN_PASSWORD = 'admin123';
 
-            // Проверяем, был ли уже вход
             if (localStorage.getItem('adminLoggedIn') === 'true') {
                 adminLogin.style.display = 'none';
                 adminContent.style.display = 'block';
@@ -1117,7 +1371,6 @@
                 }
             });
 
-            // Отправка анонимного сообщения через Formspree
             adminSendBtn.addEventListener('click', function() {
                 const message = adminMessage.value.trim();
                 if (!message) {
@@ -1126,19 +1379,15 @@
                     return;
                 }
 
-                // Замени YOUR_FORM_ID на свой ID от Formspree
                 const formspreeUrl = 'https://formspree.io/f/YOUR_FORM_ID';
-
                 fetch(formspreeUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: message, _subject: 'Анонимное сообщение с сайта' })
                 })
                 .then(response => {
                     if (response.ok) {
-                        adminSendResult.textContent = '✅ Сообщение отправлено! (Придёт на почту)';
+                        adminSendResult.textContent = '✅ Сообщение отправлено!';
                         adminSendResult.style.color = '#a78bfa';
                         adminMessage.value = '';
                         showToast('Анонимное сообщение отправлено', '📨');
@@ -1148,10 +1397,77 @@
                     }
                 })
                 .catch(() => {
-                    adminSendResult.textContent = '❌ Ошибка сети. Попробуйте позже.';
+                    adminSendResult.textContent = '❌ Ошибка сети.';
                     adminSendResult.style.color = '#f87171';
                 });
             });
+        })();
+
+        // =============================================
+        // 11. ТЁМНАЯ/СВЕТЛАЯ ТЕМА
+        // =============================================
+        (function() {
+            const themeBtn = document.getElementById('themeBtn');
+            const body = document.body;
+            let dark = localStorage.getItem('theme') !== 'light';
+            applyTheme();
+
+            function applyTheme() {
+                if (dark) {
+                    body.classList.remove('light');
+                    themeBtn.textContent = '🌙';
+                } else {
+                    body.classList.add('light');
+                    themeBtn.textContent = '☀️';
+                }
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+            }
+
+            themeBtn.addEventListener('click', function() {
+                dark = !dark;
+                applyTheme();
+                showToast(dark ? 'Тёмная тема' : 'Светлая тема', dark ? '🌙' : '☀️');
+            });
+        })();
+
+        // =============================================
+        // 12. КНОПКА НАВЕРХ
+        // =============================================
+        (function() {
+            const btn = document.getElementById('scrollTopBtn');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            });
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
+        // =============================================
+        // 13. МУЗЫКАЛЬНЫЙ ПЛЕЕР
+        // =============================================
+        (function() {
+            const musicBtn = document.getElementById('musicBtn');
+            const audio = document.getElementById('bgMusic');
+            let playing = false;
+
+            musicBtn.addEventListener('click', function() {
+                if (playing) {
+                    audio.pause();
+                    musicBtn.textContent = '🔇';
+                    playing = false;
+                } else {
+                    audio.play().catch(() => {});
+                    musicBtn.textContent = '🔊';
+                    playing = true;
+                }
+            });
+
+            // Автовоспроизведение может блокироваться браузером, поэтому оставляем нажатие.
         })();
     </script>
 </body>
