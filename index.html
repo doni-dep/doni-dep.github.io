@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Ziros — моя страница</title>
+    <title>Ziros — портфолио</title>
     <style>
         /* ===== ГЛОБАЛЬНЫЕ ===== */
         * {
@@ -13,449 +13,564 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
-            background: radial-gradient(circle at 30% 10%, #1a1a2e, #16213e, #0f3460);
-            color: #fff;
+            background: #0b0b1a;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* ===== КАРТОЧКА ===== */
-        .glass-card {
-            max-width: 800px;
+        /* ===== АНИМИРОВАННЫЙ ФОН ===== */
+        .bg-glow {
+            position: fixed;
+            top: -30%;
+            left: -20%;
+            width: 70%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(88, 50, 255, 0.2), transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            bottom: -30%;
+            right: -20%;
+            width: 70%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255, 0, 200, 0.15), transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 12s ease-in-out infinite alternate-reverse;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.2); }
+        }
+
+        /* ===== ЧАСТИЦЫ (звёзды) ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 40px;
-            padding: 40px 35px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            transition: transform 0.25s ease;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        .glass-card:hover {
-            transform: scale(1.005);
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== ОСНОВНАЯ КАРТОЧКА ===== */
+        .card {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 32px;
+            padding: 40px 38px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            transition: box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 60px rgba(88, 50, 255, 0.04);
         }
 
         /* ===== ШАПКА ===== */
-        .top-bar {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        .brand {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(145deg, #f7971e, #ffd200);
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
-        .logout-btn {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
-            color: rgba(255,255,255,0.4);
-            padding: 6px 18px;
+        .logo span {
+            font-weight: 300;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-logout {
+            padding: 6px 16px;
             border-radius: 30px;
-            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 12px;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.3s;
             font-family: inherit;
         }
 
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.08);
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.06);
             color: #fff;
+            border-color: rgba(255, 255, 255, 0.08);
         }
 
         /* ===== МЕНЮ ===== */
-        .menu {
+        .nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            padding-bottom: 18px;
+            gap: 6px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .menu-btn {
-            background: transparent;
+        .nav-btn {
+            padding: 8px 20px;
+            border-radius: 40px;
             border: none;
-            color: rgba(255,255,255,0.45);
-            padding: 8px 18px;
-            border-radius: 30px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.3);
             font-size: 14px;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.3s ease;
             font-family: inherit;
+            font-weight: 500;
         }
 
-        .menu-btn:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.04);
+        .nav-btn:hover {
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.03);
         }
 
-        .menu-btn.active {
-            background: #ffd200;
-            color: #0f0c29;
-            font-weight: 600;
-            box-shadow: 0 4px 20px rgba(255, 210, 0, 0.15);
+        .nav-btn.active {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(124, 58, 237, 0.15));
+            color: #a78bfa;
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.03);
         }
 
         /* ===== СТРАНИЦЫ ===== */
         .page {
             display: none;
-            animation: fade 0.35s ease;
+            animation: fadeUp 0.4s ease;
         }
 
         .page.active {
             display: block;
         }
 
-        @keyframes fade {
-            0% { opacity: 0; transform: translateY(12px); }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(16px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
         /* ===== ГЛАВНАЯ ===== */
+        .hero {
+            text-align: center;
+            padding: 12px 0;
+        }
+
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #f7971e, #ffd200);
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 52px;
+            font-size: 56px;
             font-weight: 700;
-            color: #0f0c29;
+            color: #fff;
             margin: 0 auto 18px;
-            box-shadow: 0 12px 40px rgba(255, 210, 0, 0.2);
+            box-shadow: 0 15px 50px rgba(124, 58, 237, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.04);
         }
 
         .greeting {
-            font-size: 34px;
+            font-size: 36px;
             font-weight: 700;
-            text-align: center;
+            color: #fff;
             margin-bottom: 4px;
         }
 
-        .sub {
-            text-align: center;
-            color: rgba(255,255,255,0.5);
+        .subtitle {
             font-size: 18px;
-            margin-bottom: 18px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 16px;
         }
 
         .desc {
-            text-align: center;
-            color: rgba(255,255,255,0.65);
             font-size: 16px;
-            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.45);
             max-width: 520px;
             margin: 0 auto 24px;
+            line-height: 1.7;
         }
 
-        .action-row {
+        .actions {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .action-btn {
-            padding: 10px 28px;
+        .btn-primary {
+            padding: 12px 32px;
             border-radius: 40px;
             border: none;
-            background: rgba(255,255,255,0.06);
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
             color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.25);
+        }
+
+        .btn-secondary {
+            padding: 12px 32px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 15px;
             font-weight: 500;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.3s ease;
             font-family: inherit;
-            border: 1px solid rgba(255,255,255,0.04);
         }
 
-        .action-btn:hover {
-            background: rgba(255,255,255,0.12);
-        }
-
-        .action-btn.primary {
-            background: linear-gradient(145deg, #f7971e, #ffd200);
-            color: #0f0c29;
-            border: none;
-            font-weight: 600;
-        }
-
-        .action-btn.primary:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(255, 210, 0, 0.2);
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
         }
 
         /* ===== ОБО МНЕ ===== */
-        .info-grid {
+        .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            gap: 16px;
         }
 
         @media (max-width: 600px) {
-            .info-grid {
+            .grid-2 {
                 grid-template-columns: 1fr;
             }
         }
 
-        .info-card {
-            background: rgba(255,255,255,0.02);
+        .info-block {
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 20px;
-            padding: 18px 20px;
-            border: 1px solid rgba(255,255,255,0.03);
+            padding: 20px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .info-card h4 {
-            color: #ffd200;
-            font-size: 15px;
-            margin-bottom: 8px;
+        .info-block h4 {
+            color: #a78bfa;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
         }
 
-        .info-card ul {
+        .info-block ul {
             list-style: none;
         }
 
-        .info-card li {
-            padding: 4px 0;
-            color: rgba(255,255,255,0.7);
+        .info-block li {
+            padding: 5px 0;
+            color: rgba(255, 255, 255, 0.55);
             font-size: 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        .info-card li:last-child {
+        .info-block li:last-child {
             border: none;
+        }
+
+        .info-block li span {
+            color: #fff;
         }
 
         .tag {
             display: inline-block;
-            background: rgba(255, 210, 0, 0.08);
-            color: #ffd200;
-            padding: 3px 14px;
+            padding: 4px 14px;
             border-radius: 30px;
+            background: rgba(167, 139, 250, 0.06);
+            color: #a78bfa;
             font-size: 12px;
-            margin: 3px 3px 3px 0;
-            border: 1px solid rgba(255, 210, 0, 0.06);
+            margin: 3px 4px 3px 0;
+            border: 1px solid rgba(167, 139, 250, 0.06);
         }
 
         /* ===== ПРОЕКТЫ ===== */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
         }
 
-        .project-item {
-            background: rgba(255,255,255,0.02);
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 20px;
-            padding: 22px 16px;
+            padding: 24px 16px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: 0.25s;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s ease;
         }
 
-        .project-item:hover {
-            background: rgba(255,255,255,0.05);
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.04);
             transform: translateY(-4px);
+            border-color: rgba(167, 139, 250, 0.08);
         }
 
-        .project-item .icon {
-            font-size: 38px;
+        .project-card .icon {
+            font-size: 36px;
             margin-bottom: 8px;
         }
 
-        .project-item h4 {
-            font-size: 17px;
+        .project-card h4 {
+            font-size: 16px;
+            color: #fff;
             margin-bottom: 4px;
         }
 
-        .project-item p {
+        .project-card p {
             font-size: 13px;
-            color: rgba(255,255,255,0.45);
+            color: rgba(255, 255, 255, 0.3);
         }
 
         /* ===== БЛОГ ===== */
-        .blog-entry {
-            background: rgba(255,255,255,0.02);
+        .blog-item {
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 16px;
             padding: 16px 20px;
-            margin-bottom: 12px;
-            border-left: 3px solid #ffd200;
+            margin-bottom: 10px;
+            border-left: 3px solid #7c3aed;
+            transition: 0.3s;
         }
 
-        .blog-entry .date {
+        .blog-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .blog-item .date {
             font-size: 11px;
-            color: rgba(255,255,255,0.25);
+            color: rgba(255, 255, 255, 0.2);
         }
 
-        .blog-entry h4 {
-            font-size: 17px;
-            margin: 2px 0;
+        .blog-item h4 {
+            font-size: 16px;
+            color: #fff;
+            margin: 3px 0;
         }
 
-        .blog-entry p {
+        .blog-item p {
             font-size: 14px;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.35);
         }
 
         /* ===== ГАЛЕРЕЯ ===== */
-        .gallery {
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
             gap: 12px;
         }
 
         .gallery-item {
             aspect-ratio: 1;
-            background: rgba(255,255,255,0.03);
-            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: 0.25s;
+            font-size: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
         }
 
         .gallery-item:hover {
-            background: rgba(255,255,255,0.07);
-            transform: scale(1.04);
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.05);
+            border-color: rgba(167, 139, 250, 0.08);
         }
 
         /* ===== КОНТАКТЫ ===== */
-        .social-row {
+        .social-wrap {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 16px;
+            margin-top: 8px;
         }
 
         .social-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 24px;
+            padding: 10px 26px;
             border-radius: 40px;
-            background: rgba(255,255,255,0.04);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.04);
-            transition: 0.25s;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
             font-size: 14px;
         }
 
         .social-link:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
             transform: translateY(-3px);
         }
 
-        .social-link.tg:hover { border-color: #0088cc; }
-        .social-link.inst:hover { border-color: #e4405f; }
-        .social-link.yt:hover { border-color: #ff0000; }
-        .social-link.email:hover { border-color: #fbbf24; }
+        .social-link.tg:hover { border-color: #0088cc; color: #0088cc; }
+        .social-link.inst:hover { border-color: #e4405f; color: #e4405f; }
+        .social-link.yt:hover { border-color: #ff0000; color: #ff0000; }
+        .social-link.email:hover { border-color: #fbbf24; color: #fbbf24; }
 
         /* ===== ФУТЕР ===== */
         .footer {
             margin-top: 32px;
             padding-top: 18px;
-            border-top: 1px solid rgba(255,255,255,0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
             text-align: center;
             font-size: 12px;
-            color: rgba(255,255,255,0.15);
+            color: rgba(255, 255, 255, 0.1);
         }
 
         /* ===== РЕГИСТРАЦИЯ ===== */
-        .auth-box {
+        .auth {
+            position: relative;
+            z-index: 1;
             max-width: 420px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(20px);
-            border-radius: 40px;
-            padding: 40px 30px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            border-radius: 32px;
+            padding: 44px 34px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.04);
             display: block;
         }
 
-        .auth-box.hidden {
+        .auth.hidden {
             display: none;
         }
 
-        .auth-box h1 {
-            font-size: 30px;
+        .auth h1 {
+            font-size: 32px;
+            color: #fff;
             margin-bottom: 4px;
         }
 
-        .auth-box .sub {
-            margin-bottom: 24px;
-            color: rgba(255,255,255,0.5);
+        .auth .sub {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 16px;
+            margin-bottom: 28px;
         }
 
-        .auth-box input {
+        .auth input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 14px 18px;
             margin-bottom: 14px;
             border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.06);
-            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
             color: #fff;
             font-size: 15px;
             outline: none;
             font-family: inherit;
+            transition: 0.3s;
         }
 
-        .auth-box input::placeholder {
-            color: rgba(255,255,255,0.25);
+        .auth input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
         }
 
-        .auth-box input:focus {
-            border-color: #ffd200;
+        .auth input:focus {
+            border-color: rgba(167, 139, 250, 0.3);
+            background: rgba(255, 255, 255, 0.04);
         }
 
-        .auth-box .btn-auth {
+        .auth .btn-auth {
             width: 100%;
             padding: 14px;
             border: none;
             border-radius: 16px;
-            background: linear-gradient(145deg, #f7971e, #ffd200);
-            color: #0f0c29;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            color: #fff;
             font-size: 17px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.3s;
             font-family: inherit;
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.15);
         }
 
-        .auth-box .btn-auth:hover {
+        .auth .btn-auth:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 35px rgba(255, 210, 0, 0.15);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.25);
         }
 
-        .auth-box .error {
-            color: #ff6b6b;
+        .auth .error {
+            color: #f87171;
             font-size: 13px;
-            margin-top: 10px;
+            margin-top: 12px;
             display: none;
         }
 
-        .auth-box .error.show {
+        .auth .error.show {
             display: block;
         }
 
@@ -465,93 +580,107 @@
 
         .main-wrap.show {
             display: block;
+            width: 100%;
+            max-width: 900px;
         }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 500px) {
-            .glass-card {
+            .card {
                 padding: 24px 16px;
             }
             .greeting {
-                font-size: 26px;
+                font-size: 28px;
             }
-            .menu-btn {
+            .nav-btn {
                 font-size: 12px;
                 padding: 6px 14px;
             }
             .avatar {
-                width: 90px;
-                height: 90px;
-                font-size: 40px;
+                width: 100px;
+                height: 100px;
+                font-size: 42px;
+            }
+            .auth {
+                padding: 32px 20px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== ФОН С ПЯТНАМИ ===== -->
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- ===== ЗВЁЗДЫ ===== -->
+    <div class="stars" id="stars"></div>
+
     <!-- ===== РЕГИСТРАЦИЯ ===== -->
-    <div class="auth-box" id="authBox">
-        <h1>✨ Привет</h1>
+    <div class="auth" id="authBox">
+        <h1>✦ Привет</h1>
         <p class="sub">Введи имя и почту, чтобы войти</p>
-        <input type="text" id="nameInput" placeholder="👤 Твоё имя" maxlength="30" />
-        <input type="email" id="emailInput" placeholder="📧 Твой email" />
-        <button class="btn-auth" id="authBtn">🚀 Войти</button>
+        <input type="text" id="nameInput" placeholder="Твоё имя" maxlength="30" />
+        <input type="email" id="emailInput" placeholder="Твой email" />
+        <button class="btn-auth" id="authBtn">Войти</button>
         <p class="error" id="authError">⚠️ Заполни все поля правильно</p>
     </div>
 
-    <!-- ===== ОСНОВНОЙ БЛОК ===== -->
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <div class="main-wrap" id="mainWrap">
 
-        <div class="glass-card">
+        <div class="card">
 
             <!-- Шапка -->
-            <div class="top-bar">
-                <span class="brand">✦ Ziros</span>
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <span style="font-size:14px;color:rgba(255,255,255,0.4);" id="headerName">Ziros</span>
-                    <button class="logout-btn" id="logoutBtn">🚪 Выйти</button>
+            <div class="header">
+                <div class="logo">Ziros<span>.dev</span></div>
+                <div class="user-area">
+                    <span class="user-name" id="headerName">Ziros</span>
+                    <button class="btn-logout" id="logoutBtn">Выйти</button>
                 </div>
             </div>
 
             <!-- Меню -->
-            <div class="menu">
-                <button class="menu-btn active" data-page="home">🏠 Главная</button>
-                <button class="menu-btn" data-page="about">👤 Обо мне</button>
-                <button class="menu-btn" data-page="projects">🚀 Проекты</button>
-                <button class="menu-btn" data-page="blog">📝 Блог</button>
-                <button class="menu-btn" data-page="gallery">🖼️ Галерея</button>
-                <button class="menu-btn" data-page="contacts">📬 Контакты</button>
+            <div class="nav">
+                <button class="nav-btn active" data-page="home">Главная</button>
+                <button class="nav-btn" data-page="about">Обо мне</button>
+                <button class="nav-btn" data-page="projects">Проекты</button>
+                <button class="nav-btn" data-page="blog">Блог</button>
+                <button class="nav-btn" data-page="gallery">Галерея</button>
+                <button class="nav-btn" data-page="contacts">Контакты</button>
             </div>
 
             <!-- ===== ГЛАВНАЯ ===== -->
             <div class="page active" id="page-home">
-                <div class="avatar">Z</div>
-                <div class="greeting" id="heroName">Привет, я Ziros</div>
-                <div class="sub">⚡ Создаю крутые штуки</div>
-                <div class="desc">
-                    Это моя цифровая визитка. Здесь я показываю проекты, делюсь мыслями и вдохновляюсь новым.
-                </div>
-                <div class="action-row">
-                    <button class="action-btn primary" onclick="switchPage('projects')">🚀 Мои проекты</button>
-                    <button class="action-btn" onclick="switchPage('contacts')">📬 Контакты</button>
+                <div class="hero">
+                    <div class="avatar">Z</div>
+                    <div class="greeting" id="heroName">Привет, я Ziros</div>
+                    <div class="subtitle">⚡ Создаю цифровые продукты</div>
+                    <div class="desc">
+                        Это моё личное пространство. Здесь я показываю проекты, делюсь мыслями и вдохновляюсь новым.
+                    </div>
+                    <div class="actions">
+                        <button class="btn-primary" onclick="switchPage('projects')">Мои проекты</button>
+                        <button class="btn-secondary" onclick="switchPage('contacts')">Контакты</button>
+                    </div>
                 </div>
             </div>
 
             <!-- ===== ОБО МНЕ ===== -->
             <div class="page" id="page-about">
-                <h3 style="font-size:24px;margin-bottom:16px;">👤 Обо мне</h3>
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4>📋 Основное</h4>
+                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Обо мне</h3>
+                <div class="grid-2">
+                    <div class="info-block">
+                        <h4>Основное</h4>
                         <ul>
                             <li>👤 <span id="aboutName">Ziros</span></li>
                             <li>📍 Город: <span>Москва</span></li>
                             <li>🎂 Возраст: <span>20 лет</span></li>
-                            <li>💼 Род деятельности: <span>Веб-разработчик</span></li>
+                            <li>💼 Род: <span>Веб-разработчик</span></li>
                         </ul>
                     </div>
-                    <div class="info-card">
-                        <h4>🧠 Навыки</h4>
+                    <div class="info-block">
+                        <h4>Навыки</h4>
                         <div style="margin-top:6px;">
                             <span class="tag">HTML</span>
                             <span class="tag">CSS</span>
@@ -562,8 +691,8 @@
                             <span class="tag">Дизайн</span>
                         </div>
                     </div>
-                    <div class="info-card">
-                        <h4>📚 Интересы</h4>
+                    <div class="info-block">
+                        <h4>Интересы</h4>
                         <ul>
                             <li>💻 Веб-разработка</li>
                             <li>🤖 Боты и автоматизация</li>
@@ -571,8 +700,8 @@
                             <li>📖 Саморазвитие</li>
                         </ul>
                     </div>
-                    <div class="info-card">
-                        <h4>🏆 Достижения</h4>
+                    <div class="info-block">
+                        <h4>Достижения</h4>
                         <ul>
                             <li>✅ Создал свой сайт</li>
                             <li>✅ Написал Telegram-бота</li>
@@ -585,28 +714,27 @@
 
             <!-- ===== ПРОЕКТЫ ===== -->
             <div class="page" id="page-projects">
-                <h3 style="font-size:24px;margin-bottom:16px;">🚀 Мои проекты</h3>
+                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Проекты</h3>
                 <div class="project-grid">
-                    <div class="project-item"><div class="icon">🌐</div><h4>Этот сайт</h4><p>Моё портфолио на Netlify</p></div>
-                    <div class="project-item"><div class="icon">🤖</div><h4>Telegram-бот</h4><p>Бот с полезными функциями</p></div>
-                    <div class="project-item"><div class="icon">🎨</div><h4>Дизайн</h4><p>Красивые интерфейсы</p></div>
-                    <div class="project-item"><div class="icon">📱</div><h4>Новый проект</h4><p>Скоро будет готов</p></div>
+                    <div class="project-card"><div class="icon">🌐</div><h4>Этот сайт</h4><p>Моё портфолио на Netlify</p></div>
+                    <div class="project-card"><div class="icon">🤖</div><h4>Telegram-бот</h4><p>Бот с полезными функциями</p></div>
+                    <div class="project-card"><div class="icon">🎨</div><h4>Дизайн</h4><p>Интерфейсы и визуал</p></div>
+                    <div class="project-card"><div class="icon">📱</div><h4>Новый проект</h4><p>Скоро будет готов</p></div>
                 </div>
             </div>
 
             <!-- ===== БЛОГ ===== -->
             <div class="page" id="page-blog">
-                <h3 style="font-size:24px;margin-bottom:16px;">📝 Последние заметки</h3>
-                <div class="blog-entry"><div class="date">🔹 Сегодня</div><h4>Создал портфолио!</h4><p>Запустил сайт с крутым дизайном</p></div>
-                <div class="blog-entry"><div class="date">🔹 Вчера</div><h4>Изучаю JavaScript</h4><p>Пишу функции и работаю с DOM</p></div>
-                <div class="blog-entry"><div class="date">🔹 2 дня назад</div><h4>Telegram-бот готов</h4><p>Бот отвечает на команды</p></div>
-                <div class="blog-entry"><div class="date">🔹 Неделя назад</div><h4>Планы на лето</h4><p>Хочу освоить React и ещё 3 бота</p></div>
+                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Заметки</h3>
+                <div class="blog-item"><div class="date">Сегодня</div><h4>Создал портфолио!</h4><p>Запустил сайт с крутым дизайном</p></div>
+                <div class="blog-item"><div class="date">Вчера</div><h4>Изучаю JavaScript</h4><p>Пишу функции и работаю с DOM</p></div>
+                <div class="blog-item"><div class="date">2 дня назад</div><h4>Telegram-бот готов</h4><p>Бот отвечает на команды</p></div>
             </div>
 
             <!-- ===== ГАЛЕРЕЯ ===== -->
             <div class="page" id="page-gallery">
-                <h3 style="font-size:24px;margin-bottom:16px;">🖼️ Галерея</h3>
-                <div class="gallery">
+                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">Галерея</h3>
+                <div class="gallery-grid">
                     <div class="gallery-item">🌌</div>
                     <div class="gallery-item">🚀</div>
                     <div class="gallery-item">🎨</div>
@@ -621,9 +749,9 @@
 
             <!-- ===== КОНТАКТЫ ===== -->
             <div class="page" id="page-contacts">
-                <h3 style="font-size:24px;margin-bottom:6px;">📬 Свяжись со мной</h3>
-                <p style="color:rgba(255,255,255,0.4);margin-bottom:10px;">Всегда рад новым знакомствам</p>
-                <div class="social-row">
+                <h3 style="font-size:24px;color:#fff;margin-bottom:4px;">Контакты</h3>
+                <p style="color:rgba(255,255,255,0.25);margin-bottom:12px;">Свяжись со мной в любой соцсети</p>
+                <div class="social-wrap">
                     <a href="https://t.me/ziros" class="social-link tg" target="_blank">💬 Telegram</a>
                     <a href="https://instagram.com/ziros" class="social-link inst" target="_blank">📷 Instagram</a>
                     <a href="https://youtube.com/@ziros" class="social-link yt" target="_blank">▶️ YouTube</a>
@@ -631,15 +759,31 @@
                 </div>
             </div>
 
-            <!-- Футер -->
-            <div class="footer">© 2026 Ziros — сделано на Netlify</div>
+            <div class="footer">© 2026 Ziros — на Netlify</div>
 
         </div>
     </div>
 
     <script>
         // =============================================
-        // 1. РЕГИСТРАЦИЯ
+        // ЗВЁЗДЫ
+        // =============================================
+        (function() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = (Math.random() * 2 + 0.5) + 'px';
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                container.appendChild(star);
+            }
+        })();
+
+        // =============================================
+        // РЕГИСТРАЦИЯ
         // =============================================
         (function() {
             const authBox = document.getElementById('authBox');
@@ -710,22 +854,22 @@
         })();
 
         // =============================================
-        // 2. МЕНЮ
+        // МЕНЮ
         // =============================================
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(function(p) {
                 p.classList.remove('active');
             });
-            document.querySelectorAll('.menu-btn').forEach(function(b) {
+            document.querySelectorAll('.nav-btn').forEach(function(b) {
                 b.classList.remove('active');
             });
             const target = document.getElementById('page-' + pageId);
             if (target) target.classList.add('active');
-            const btn = document.querySelector('.menu-btn[data-page="' + pageId + '"]');
+            const btn = document.querySelector('.nav-btn[data-page="' + pageId + '"]');
             if (btn) btn.classList.add('active');
         }
 
-        document.querySelectorAll('.menu-btn').forEach(function(btn) {
+        document.querySelectorAll('.nav-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 switchPage(this.getAttribute('data-page'));
             });
