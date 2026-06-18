@@ -6,7 +6,7 @@
     <title>Ziros — портфолио</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%237c3aed' font-weight='bold'>Z</text></svg>" />
     <style>
-        /* ===== ВСЕ СТИЛИ ОСТАЛИСЬ БЕЗ ИЗМЕНЕНИЙ (как в предыдущей версии) ===== */
+        /* ===== БАЗА ===== */
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family:'Segoe UI',system-ui,sans-serif;
@@ -144,7 +144,7 @@
         .slider-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.1); border:none; cursor:pointer; transition:0.3s; }
         body.light .slider-dot { background:rgba(0,0,0,0.1); }
         .slider-dot.active { background:#7c3aed; width:20px; border-radius:10px; }
-        /* ===== СТИЛИ ДЛЯ НОВОЙ ИГРЫ "УГАДАЙ ЧИСЛО" ===== */
+        /* ===== ИГРА "УГАДАЙ ЧИСЛО" ===== */
         .game-area { text-align:center; padding:20px; background:rgba(255,255,255,0.02); border-radius:24px; border:1px solid rgba(255,255,255,0.03); transition:background 0.4s,border-color 0.4s; }
         body.light .game-area { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.03); }
         .game-status { font-size:20px; color:#fff; margin-bottom:12px; transition:color 0.4s; }
@@ -160,7 +160,16 @@
         body.light .game-attempts { color:rgba(0,0,0,0.4); }
         .game-hint { font-size:16px; color:rgba(255,255,255,0.6); margin-top:8px; transition:color 0.4s; }
         body.light .game-hint { color:rgba(0,0,0,0.6); }
-        /* ===== ОСТАЛЬНЫЕ СТИЛИ (погода, админка, контакты, навыки) ===== */
+        /* ===== НАВЫКИ ===== */
+        .skills-grid { display:grid; grid-template-columns:1fr; gap:16px; margin-top:15px; }
+        .skill-item { display:flex; flex-direction:column; gap:4px; }
+        .skill-item .skill-label { display:flex; justify-content:space-between; color:rgba(255,255,255,0.7); font-size:14px; }
+        body.light .skill-item .skill-label { color:rgba(0,0,0,0.7); }
+        .skill-bar { width:100%; height:8px; background:rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; }
+        body.light .skill-bar { background:rgba(0,0,0,0.08); }
+        .skill-fill { height:100%; width:0%; border-radius:10px; background:linear-gradient(90deg,#7c3aed,#a78bfa); transition:width 1.2s ease; }
+        body.light .skill-fill { background:linear-gradient(90deg,#6d28d9,#8b5cf6); }
+        /* ===== ПОГОДА ===== */
         .weather-widget { background:rgba(255,255,255,0.02); border-radius:20px; padding:20px; text-align:center; border:1px solid rgba(255,255,255,0.03); transition:background 0.4s,border-color 0.4s; }
         body.light .weather-widget { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.03); }
         .weather-city { font-size:20px; color:#fff; transition:color 0.4s; }
@@ -168,6 +177,7 @@
         .weather-temp { font-size:48px; font-weight:700; color:#a78bfa; }
         .weather-desc { color:rgba(255,255,255,0.4); transition:color 0.4s; }
         body.light .weather-desc { color:rgba(0,0,0,0.4); }
+        /* ===== КОНТАКТЫ ===== */
         .social-wrap { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:8px; }
         .social-link { display:inline-flex; align-items:center; gap:8px; padding:10px 26px; border-radius:40px; background:rgba(255,255,255,0.02); color:rgba(255,255,255,0.5); text-decoration:none; border:1px solid rgba(255,255,255,0.04); transition:0.3s; font-size:14px; }
         body.light .social-link { background:rgba(0,0,0,0.02); color:rgba(0,0,0,0.4); border-color:rgba(0,0,0,0.04); }
@@ -177,8 +187,7 @@
         .social-link.inst:hover { border-color:#e4405f; color:#e4405f; }
         .social-link.yt:hover { border-color:#ff0000; color:#ff0000; }
         .social-link.email:hover { border-color:#fbbf24; color:#fbbf24; }
-        .footer { margin-top:32px; padding-top:18px; border-top:1px solid rgba(255,255,255,0.03); text-align:center; font-size:12px; color:rgba(255,255,255,0.1); transition:border-color 0.4s,color 0.4s; }
-        body.light .footer { border-top-color:rgba(0,0,0,0.03); color:rgba(0,0,0,0.1); }
+        /* ===== АДМИНКА ===== */
         .admin-login { text-align:center; padding:20px 0; }
         .admin-login input { padding:10px 16px; border-radius:30px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.03); color:#fff; font-size:16px; outline:none; font-family:inherit; width:200px; transition:border-color 0.4s,background 0.4s,color 0.4s; }
         body.light .admin-login input { border-color:rgba(0,0,0,0.1); background:rgba(0,0,0,0.02); color:#000; }
@@ -193,6 +202,7 @@
         body.light .admin-content textarea { border-color:rgba(0,0,0,0.1); background:rgba(0,0,0,0.02); color:#000; }
         .admin-content .send-btn { padding:10px 30px; border-radius:30px; border:none; background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; font-size:16px; cursor:pointer; font-family:inherit; margin-top:10px; }
         .admin-error { color:#f87171; display:none; }
+        /* ===== РЕГИСТРАЦИЯ ===== */
         .auth { position:relative; z-index:1; max-width:420px; width:100%; background:rgba(255,255,255,0.03); backdrop-filter:blur(24px); border-radius:32px; padding:44px 34px; border:1px solid rgba(255,255,255,0.04); text-align:center; transition:background 0.4s,border-color 0.4s; }
         body.light .auth { background:rgba(255,255,255,0.7); border-color:rgba(0,0,0,0.04); }
         .auth.hidden { display:none; }
@@ -212,23 +222,18 @@
         .auth .error.show { display:block; }
         .main-wrap { display:none; }
         .main-wrap.show { display:block; width:100%; max-width:1000px; }
+        /* ===== КНОПКА НАВЕРХ ===== */
         .scroll-top { position:fixed; bottom:30px; right:30px; z-index:1000; width:50px; height:50px; border-radius:50%; border:1px solid rgba(255,255,255,0.05); background:rgba(255,255,255,0.03); backdrop-filter:blur(8px); color:#fff; font-size:24px; cursor:pointer; display:none; align-items:center; justify-content:center; transition:0.3s; box-shadow:0 8px 25px rgba(0,0,0,0.3); }
         body.light .scroll-top { border-color:rgba(0,0,0,0.05); background:rgba(255,255,255,0.6); color:#000; }
         .scroll-top:hover { transform:scale(1.1); background:rgba(124,58,237,0.2); }
         .scroll-top.show { display:flex; }
+        /* ===== МУЗЫКА ===== */
         .music-btn { position:fixed; bottom:30px; left:30px; z-index:1000; width:50px; height:50px; border-radius:50%; border:1px solid rgba(255,255,255,0.05); background:rgba(255,255,255,0.03); backdrop-filter:blur(8px); color:#fff; font-size:24px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.3s; box-shadow:0 8px 25px rgba(0,0,0,0.3); }
         body.light .music-btn { border-color:rgba(0,0,0,0.05); background:rgba(255,255,255,0.6); color:#000; }
         .music-btn:hover { transform:scale(1.1); background:rgba(124,58,237,0.2); }
+        /* ===== АНИМАЦИИ ===== */
         .scroll-animate { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
         .scroll-animate.visible { opacity:1; transform:translateY(0); }
-        .skills-grid { display:grid; grid-template-columns:1fr; gap:16px; margin-top:15px; }
-        .skill-item { display:flex; flex-direction:column; gap:4px; }
-        .skill-item .skill-label { display:flex; justify-content:space-between; color:rgba(255,255,255,0.7); font-size:14px; }
-        body.light .skill-item .skill-label { color:rgba(0,0,0,0.7); }
-        .skill-bar { width:100%; height:8px; background:rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; }
-        body.light .skill-bar { background:rgba(0,0,0,0.08); }
-        .skill-fill { height:100%; width:0%; border-radius:10px; background:linear-gradient(90deg,#7c3aed,#a78bfa); transition:width 1.2s ease; }
-        body.light .skill-fill { background:linear-gradient(90deg,#6d28d9,#8b5cf6); }
         @media (max-width:500px) {
             .card { padding:24px 16px; }
             .greeting { font-size:28px; }
@@ -251,10 +256,10 @@
     <!-- КНОПКА НАВЕРХ -->
     <button class="scroll-top" id="scrollTopBtn">⬆</button>
 
-    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР (Whole Lotta Swag - Не я) -->
+    <!-- МУЗЫКА (рабочая ссылка с Pixabay) -->
     <button class="music-btn" id="musicBtn">🔇</button>
     <audio id="bgMusic" loop>
-        <source src="https://muzokey.net/uploads/music/2025/12/12/Whole_Lotta_Swag_-_Ne_JA.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a7f5b4.mp3" type="audio/mpeg">
     </audio>
 
     <!-- РЕГИСТРАЦИЯ -->
@@ -328,30 +333,12 @@
             <div class="page" id="page-skills">
                 <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">🧠 Мои навыки</h3>
                 <div class="skills-grid scroll-animate" id="skillsContainer">
-                    <div class="skill-item">
-                        <div class="skill-label"><span>HTML &amp; CSS</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-label"><span>JavaScript</span><span>70%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-label"><span>Python</span><span>60%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-label"><span>Git &amp; GitHub</span><span>75%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-label"><span>Netlify / Deploy</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-label"><span>Telegram Bot API</span><span>55%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="55"></div></div>
-                    </div>
+                    <div class="skill-item"><div class="skill-label"><span>HTML &amp; CSS</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+                    <div class="skill-item"><div class="skill-label"><span>JavaScript</span><span>70%</span></div><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div>
+                    <div class="skill-item"><div class="skill-label"><span>Python</span><span>60%</span></div><div class="skill-bar"><div class="skill-fill" data-width="60"></div></div></div>
+                    <div class="skill-item"><div class="skill-label"><span>Git &amp; GitHub</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+                    <div class="skill-item"><div class="skill-label"><span>Netlify / Deploy</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+                    <div class="skill-item"><div class="skill-label"><span>Telegram Bot API</span><span>55%</span></div><div class="skill-bar"><div class="skill-fill" data-width="55"></div></div></div>
                 </div>
             </div>
 
@@ -374,7 +361,7 @@
                 <div class="blog-item scroll-animate"><div class="date">2 дня назад</div><h4>Telegram-бот готов</h4><p>Бот отвечает на команды</p></div>
             </div>
 
-            <!-- ГАЛЕРЕЯ -->
+            <!-- ГАЛЕРЕЯ (СЛАЙДЕР) -->
             <div class="page" id="page-gallery">
                 <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">Галерея</h3>
                 <div class="slider-container scroll-animate">
@@ -391,7 +378,7 @@
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
 
-            <!-- ===== НОВАЯ ИГРА "УГАДАЙ ЧИСЛО" ===== -->
+            <!-- ИГРА "УГАДАЙ ЧИСЛО" -->
             <div class="page" id="page-game">
                 <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">🎯 Угадай число</h3>
                 <div class="game-area scroll-animate">
@@ -437,15 +424,8 @@
                     <p class="admin-error" id="adminError">Неверный пароль</p>
                 </div>
                 <div class="admin-content" id="adminContent">
-                    <div class="stat">
-                        <h4>👥 Онлайн сейчас</h4>
-                        <p><span id="whos-amung-us">Загрузка...</span></p>
-                    </div>
-                    <div class="stat">
-                        <h4>📊 Зарегистрировано (локально)</h4>
-                        <p id="registeredCount">0</p>
-                        <p style="font-size:12px;color:rgba(255,255,255,0.3);">*только на этом устройстве</p>
-                    </div>
+                    <div class="stat"><h4>👥 Онлайн сейчас</h4><p><span id="whos-amung-us">Загрузка...</span></p></div>
+                    <div class="stat"><h4>📊 Зарегистрировано (локально)</h4><p id="registeredCount">0</p><p style="font-size:12px;color:rgba(255,255,255,0.3);">*только на этом устройстве</p></div>
                     <div class="stat">
                         <h4>✉️ Отправить анонимное сообщение</h4>
                         <textarea id="adminMessage" placeholder="Текст..."></textarea>
@@ -676,7 +656,7 @@
         })();
 
         // =============================================
-        // 7. НОВАЯ ИГРА "УГАДАЙ ЧИСЛО"
+        // 7. ИГРА "УГАДАЙ ЧИСЛО"
         // =============================================
         (function() {
             let secretNumber = Math.floor(Math.random() * 100) + 1;
@@ -763,7 +743,6 @@
             });
             resetBtn.addEventListener('click', resetGame);
 
-            // Старт игры
             resetGame();
         })();
 
@@ -922,7 +901,7 @@
         })();
 
         // =============================================
-        // 13. МУЗЫКА (Whole Lotta Swag)
+        // 13. МУЗЫКА (рабочая ссылка)
         // =============================================
         (function() {
             const musicBtn = document.getElementById('musicBtn');
