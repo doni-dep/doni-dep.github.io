@@ -6,7 +6,7 @@
     <title>Ziros — портфолио</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%237c3aed' font-weight='bold'>Z</text></svg>" />
     <style>
-        /* ===== НОВЫЙ ФОН ===== */
+        /* ===== ВСЕ СТИЛИ (те же, что в предыдущей версии) ===== */
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family:'Segoe UI',system-ui,sans-serif;
@@ -20,7 +20,6 @@
             overflow-x:hidden;
             transition:background 0.4s,color 0.4s;
         }
-        /* Анимированный градиентный фон */
         body::before {
             content:'';
             position:fixed;
@@ -36,8 +35,6 @@
             100% { opacity:1; transform:scale(1.1); }
         }
         body.light::before { background: #f0f0f5; }
-
-        /* Парящие светящиеся шары */
         .orb {
             position:fixed;
             border-radius:50%;
@@ -54,8 +51,6 @@
             100% { transform:translate(40px,-30px) scale(1.2); }
         }
         body.light .orb { opacity:0.1; }
-
-        /* Звёзды */
         .stars {
             position:fixed;
             top:0; left:0; width:100%; height:100%;
@@ -72,48 +67,24 @@
         }
         body.light .star { background:#888; }
         @keyframes twinkle { 0%{opacity:0.2;} 100%{opacity:1;} }
-
-        /* ===== ОСНОВНАЯ КАРТОЧКА ===== */
         .card {
-            position:relative;
-            z-index:1;
-            max-width:1000px;
-            width:100%;
-            background:rgba(255,255,255,0.04);
-            backdrop-filter:blur(24px);
-            border-radius:40px;
-            padding:40px 38px;
-            border:1px solid rgba(255,255,255,0.08);
+            position:relative; z-index:1; max-width:1000px; width:100%;
+            background:rgba(255,255,255,0.04); backdrop-filter:blur(24px); border-radius:40px;
+            padding:40px 38px; border:1px solid rgba(255,255,255,0.08);
             box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(124,58,237,0.05);
             transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;
         }
         body.light .card { background:rgba(255,255,255,0.7); backdrop-filter:blur(24px); border-color:rgba(0,0,0,0.04); box-shadow:0 30px 80px rgba(0,0,0,0.05); }
-
-        /* ===== ТОСТЫ ===== */
         .toast-container {
-            position:fixed;
-            top:20px;
-            right:20px;
-            z-index:9999;
-            display:flex;
-            flex-direction:column;
-            gap:10px;
-            max-width:320px;
-            width:100%;
+            position:fixed; top:20px; right:20px; z-index:9999;
+            display:flex; flex-direction:column; gap:10px; max-width:320px; width:100%;
         }
         .toast {
-            background:rgba(255,255,255,0.08);
-            backdrop-filter:blur(16px);
-            border:1px solid rgba(255,255,255,0.06);
-            border-radius:16px;
-            padding:14px 20px;
-            color:#fff;
-            font-size:14px;
+            background:rgba(255,255,255,0.08); backdrop-filter:blur(16px);
+            border:1px solid rgba(255,255,255,0.06); border-radius:16px;
+            padding:14px 20px; color:#fff; font-size:14px;
             box-shadow:0 8px 30px rgba(0,0,0,0.4);
-            animation:slideIn 0.4s ease;
-            display:flex;
-            align-items:center;
-            gap:10px;
+            animation:slideIn 0.4s ease; display:flex; align-items:center; gap:10px;
         }
         body.light .toast { background:rgba(255,255,255,0.7); color:#111; border-color:rgba(0,0,0,0.04); }
         .toast.hide { animation:slideOut 0.4s ease forwards; }
@@ -122,26 +93,16 @@
         .toast .emoji { font-size:20px; }
         .toast .close { margin-left:auto; cursor:pointer; opacity:0.4; font-size:16px; transition:0.2s; }
         .toast .close:hover { opacity:1; }
-
-        /* ===== ШАПКА ===== */
         .header {
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            flex-wrap:wrap;
-            gap:12px;
-            margin-bottom:28px;
-            padding-bottom:18px;
-            border-bottom:1px solid rgba(255,255,255,0.04);
+            display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+            margin-bottom:28px; padding-bottom:18px; border-bottom:1px solid rgba(255,255,255,0.04);
             transition:border-color 0.4s;
         }
         body.light .header { border-bottom-color:rgba(0,0,0,0.04); }
         .logo {
-            font-size:24px;
-            font-weight:700;
+            font-size:24px; font-weight:700;
             background:linear-gradient(135deg,#a78bfa,#7c3aed);
-            -webkit-background-clip:text;
-            -webkit-text-fill-color:transparent;
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
         }
         .logo span { -webkit-text-fill-color:rgba(255,255,255,0.15); }
         body.light .logo span { -webkit-text-fill-color:rgba(0,0,0,0.2); }
@@ -149,42 +110,22 @@
         .user-name { color:rgba(255,255,255,0.4); font-size:14px; transition:color 0.4s; }
         body.light .user-name { color:rgba(0,0,0,0.4); }
         .btn-logout, .btn-theme {
-            padding:6px 16px;
-            border-radius:30px;
-            border:1px solid rgba(255,255,255,0.04);
-            background:rgba(255,255,255,0.02);
-            color:rgba(255,255,255,0.25);
-            font-size:12px;
-            cursor:pointer;
-            transition:0.3s;
-            font-family:inherit;
+            padding:6px 16px; border-radius:30px; border:1px solid rgba(255,255,255,0.04);
+            background:rgba(255,255,255,0.02); color:rgba(255,255,255,0.25); font-size:12px;
+            cursor:pointer; transition:0.3s; font-family:inherit;
         }
         body.light .btn-logout, body.light .btn-theme { border-color:rgba(0,0,0,0.04); color:rgba(0,0,0,0.3); background:rgba(0,0,0,0.02); }
         .btn-logout:hover, .btn-theme:hover { background:rgba(255,255,255,0.06); color:#fff; }
         body.light .btn-logout:hover, body.light .btn-theme:hover { background:rgba(0,0,0,0.04); color:#000; }
-
-        /* ===== МЕНЮ ===== */
         .nav {
-            display:flex;
-            flex-wrap:wrap;
-            gap:6px;
-            margin-bottom:28px;
-            padding-bottom:16px;
-            border-bottom:1px solid rgba(255,255,255,0.03);
-            transition:border-color 0.4s;
+            display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; padding-bottom:16px;
+            border-bottom:1px solid rgba(255,255,255,0.03); transition:border-color 0.4s;
         }
         body.light .nav { border-bottom-color:rgba(0,0,0,0.03); }
         .nav-btn {
-            padding:8px 20px;
-            border-radius:40px;
-            border:none;
-            background:transparent;
-            color:rgba(255,255,255,0.3);
-            font-size:14px;
-            cursor:pointer;
-            transition:0.3s;
-            font-family:inherit;
-            font-weight:500;
+            padding:8px 20px; border-radius:40px; border:none; background:transparent;
+            color:rgba(255,255,255,0.3); font-size:14px; cursor:pointer; transition:0.3s;
+            font-family:inherit; font-weight:500;
         }
         body.light .nav-btn { color:rgba(0,0,0,0.3); }
         .nav-btn:hover { color:rgba(255,255,255,0.7); background:rgba(255,255,255,0.03); }
@@ -194,26 +135,16 @@
             color:#a78bfa;
         }
         body.light .nav-btn.active { background:rgba(124,58,237,0.1); color:#7c3aed; }
-
-        /* ===== СТРАНИЦЫ ===== */
         .page { display:none; animation:fadeUp 0.4s ease; }
         .page.active { display:block; }
         @keyframes fadeUp { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
-
-        /* ===== ГЛАВНАЯ ===== */
         .hero { text-align:center; padding:12px 0; }
         .avatar {
-            width:130px; height:130px;
-            border-radius:50%;
+            width:130px; height:130px; border-radius:50%;
             background:linear-gradient(135deg,#7c3aed,#a78bfa);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:56px;
-            color:#fff;
-            margin:0 auto 18px;
-            box-shadow:0 15px 50px rgba(124,58,237,0.25);
-            transition:box-shadow 0.4s;
+            display:flex; align-items:center; justify-content:center;
+            font-size:56px; color:#fff; margin:0 auto 18px;
+            box-shadow:0 15px 50px rgba(124,58,237,0.25); transition:box-shadow 0.4s;
         }
         body.light .avatar { box-shadow:0 15px 50px rgba(124,58,237,0.1); }
         .greeting { font-size:36px; font-weight:700; color:#fff; margin-bottom:4px; transition:color 0.4s; }
@@ -223,50 +154,32 @@
         .desc { font-size:16px; color:rgba(255,255,255,0.45); max-width:520px; margin:0 auto 24px; line-height:1.7; transition:color 0.4s; }
         body.light .desc { color:rgba(0,0,0,0.5); }
         .typing-cursor {
-            display:inline-block;
-            width:2px;
-            height:1.2em;
-            background:#a78bfa;
-            margin-left:2px;
-            vertical-align:text-bottom;
-            animation:blink 0.8s step-end infinite;
+            display:inline-block; width:2px; height:1.2em; background:#a78bfa;
+            margin-left:2px; vertical-align:text-bottom; animation:blink 0.8s step-end infinite;
         }
         @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
         .actions { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
         .btn-primary, .btn-secondary {
-            padding:12px 32px;
-            border-radius:40px;
-            border:none;
-            font-size:15px;
-            font-weight:600;
-            cursor:pointer;
-            transition:0.3s;
-            font-family:inherit;
+            padding:12px 32px; border-radius:40px; border:none; font-size:15px; font-weight:600;
+            cursor:pointer; transition:0.3s; font-family:inherit;
         }
         .btn-primary {
-            background:linear-gradient(135deg,#7c3aed,#a78bfa);
-            color:#fff;
+            background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff;
             box-shadow:0 8px 30px rgba(124,58,237,0.15);
         }
         .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(124,58,237,0.25); }
         .btn-secondary {
-            background:rgba(255,255,255,0.02);
-            color:rgba(255,255,255,0.5);
+            background:rgba(255,255,255,0.02); color:rgba(255,255,255,0.5);
             border:1px solid rgba(255,255,255,0.06);
         }
         body.light .btn-secondary { background:rgba(0,0,0,0.02); color:rgba(0,0,0,0.4); border-color:rgba(0,0,0,0.06); }
         .btn-secondary:hover { background:rgba(255,255,255,0.04); color:#fff; }
         body.light .btn-secondary:hover { background:rgba(0,0,0,0.04); color:#000; }
-
-        /* ===== ОБО МНЕ ===== */
         .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
         @media (max-width:600px){ .grid-2{ grid-template-columns:1fr; } }
         .info-block {
-            background:rgba(255,255,255,0.02);
-            border-radius:20px;
-            padding:20px 22px;
-            border:1px solid rgba(255,255,255,0.03);
-            transition:background 0.4s,border-color 0.4s;
+            background:rgba(255,255,255,0.02); border-radius:20px; padding:20px 22px;
+            border:1px solid rgba(255,255,255,0.03); transition:background 0.4s,border-color 0.4s;
         }
         body.light .info-block { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.03); }
         .info-block h4 { color:#a78bfa; font-size:14px; text-transform:uppercase; margin-bottom:10px; }
@@ -277,26 +190,15 @@
         .info-block li span { color:#fff; }
         body.light .info-block li span { color:#000; }
         .tag {
-            display:inline-block;
-            padding:4px 14px;
-            border-radius:30px;
-            background:rgba(167,139,250,0.06);
-            color:#a78bfa;
-            font-size:12px;
-            margin:3px 4px 3px 0;
-            border:1px solid rgba(167,139,250,0.06);
+            display:inline-block; padding:4px 14px; border-radius:30px;
+            background:rgba(167,139,250,0.06); color:#a78bfa; font-size:12px;
+            margin:3px 4px 3px 0; border:1px solid rgba(167,139,250,0.06);
         }
         body.light .tag { background:rgba(124,58,237,0.05); border-color:rgba(124,58,237,0.1); }
-
-        /* ===== ПРОЕКТЫ ===== */
         .project-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; }
         .project-card {
-            background:rgba(255,255,255,0.02);
-            border-radius:20px;
-            padding:24px 16px;
-            text-align:center;
-            border:1px solid rgba(255,255,255,0.03);
-            transition:0.3s;
+            background:rgba(255,255,255,0.02); border-radius:20px; padding:24px 16px;
+            text-align:center; border:1px solid rgba(255,255,255,0.03); transition:0.3s;
         }
         body.light .project-card { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.03); }
         .project-card:hover { background:rgba(255,255,255,0.04); transform:translateY(-4px); }
@@ -306,15 +208,9 @@
         body.light .project-card h4 { color:#111; }
         .project-card p { font-size:13px; color:rgba(255,255,255,0.3); transition:color 0.4s; }
         body.light .project-card p { color:rgba(0,0,0,0.3); }
-
-        /* ===== БЛОГ ===== */
         .blog-item {
-            background:rgba(255,255,255,0.02);
-            border-radius:16px;
-            padding:16px 20px;
-            margin-bottom:10px;
-            border-left:3px solid #7c3aed;
-            transition:background 0.3s;
+            background:rgba(255,255,255,0.02); border-radius:16px; padding:16px 20px;
+            margin-bottom:10px; border-left:3px solid #7c3aed; transition:background 0.3s;
         }
         body.light .blog-item { background:rgba(0,0,0,0.02); }
         .blog-item:hover { background:rgba(255,255,255,0.03); }
@@ -325,43 +221,22 @@
         body.light .blog-item h4 { color:#111; }
         .blog-item p { font-size:14px; color:rgba(255,255,255,0.35); transition:color 0.4s; }
         body.light .blog-item p { color:rgba(0,0,0,0.35); }
-
-        /* ===== ГАЛЕРЕЯ-СЛАЙДЕР ===== */
         .slider-container {
-            position:relative;
-            overflow:hidden;
-            border-radius:20px;
-            margin:10px 0;
+            position:relative; overflow:hidden; border-radius:20px; margin:10px 0;
         }
         .slider-track { display:flex; transition:transform 0.5s ease; }
         .slider-slide {
-            min-width:100%;
-            aspect-ratio:16/9;
+            min-width:100%; aspect-ratio:16/9;
             background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(167,139,250,0.1));
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:60px;
-            border-radius:20px;
-            color:rgba(255,255,255,0.2);
-            transition:background 0.4s;
+            display:flex; align-items:center; justify-content:center; font-size:60px;
+            border-radius:20px; color:rgba(255,255,255,0.2); transition:background 0.4s;
         }
         body.light .slider-slide { background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(167,139,250,0.02)); }
         .slider-btn {
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-            background:rgba(255,255,255,0.05);
-            border:1px solid rgba(255,255,255,0.06);
-            color:#fff;
-            width:40px;
-            height:40px;
-            border-radius:50%;
-            cursor:pointer;
-            font-size:20px;
-            transition:0.3s;
-            font-family:inherit;
-            backdrop-filter:blur(8px);
+            position:absolute; top:50%; transform:translateY(-50%);
+            background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.06);
+            color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer;
+            font-size:20px; transition:0.3s; font-family:inherit; backdrop-filter:blur(8px);
         }
         body.light .slider-btn { color:#111; border-color:rgba(0,0,0,0.06); }
         .slider-btn:hover { background:rgba(255,255,255,0.1); }
@@ -369,24 +244,14 @@
         .slider-btn.prev { left:10px; }
         .slider-btn.next { right:10px; }
         .slider-dots {
-            display:flex;
-            justify-content:center;
-            gap:8px;
-            margin-top:12px;
+            display:flex; justify-content:center; gap:8px; margin-top:12px;
         }
         .slider-dot {
-            width:10px;
-            height:10px;
-            border-radius:50%;
-            background:rgba(255,255,255,0.1);
-            border:none;
-            cursor:pointer;
-            transition:0.3s;
+            width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.1);
+            border:none; cursor:pointer; transition:0.3s;
         }
         body.light .slider-dot { background:rgba(0,0,0,0.1); }
         .slider-dot.active { background:#7c3aed; width:20px; border-radius:10px; }
-
-        /* ===== НАВЫКИ ===== */
         .skills-grid { display:grid; grid-template-columns:1fr; gap:16px; margin-top:15px; }
         .skill-item { display:flex; flex-direction:column; gap:4px; }
         .skill-item .skill-label { display:flex; justify-content:space-between; color:rgba(255,255,255,0.7); font-size:14px; }
@@ -395,15 +260,30 @@
         body.light .skill-bar { background:rgba(0,0,0,0.08); }
         .skill-fill { height:100%; width:0%; border-radius:10px; background:linear-gradient(90deg,#7c3aed,#a78bfa); transition:width 1.2s ease; }
         body.light .skill-fill { background:linear-gradient(90deg,#6d28d9,#8b5cf6); }
-
-        /* ===== ПОГОДА ===== */
+        .game-board {
+            display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:360px; margin:20px auto;
+        }
+        .game-cell {
+            aspect-ratio:1; background:rgba(255,255,255,0.04); border-radius:20px;
+            border:1px solid rgba(255,255,255,0.08);
+            display:flex; align-items:center; justify-content:center; font-size:60px; font-weight:700;
+            color:#fff; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 20px rgba(0,0,0,0.2);
+        }
+        body.light .game-cell { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.05); color:#111; }
+        .game-cell:hover { background:rgba(255,255,255,0.08); transform:scale(1.02); }
+        .game-cell.x { color:#a78bfa; text-shadow:0 0 20px rgba(167,139,250,0.5); }
+        .game-cell.o { color:#f5576c; text-shadow:0 0 20px rgba(245,87,108,0.5); }
+        .game-status { text-align:center; font-size:20px; color:#fff; margin:10px 0; }
+        body.light .game-status { color:#111; }
+        .game-restart {
+            display:block; margin:10px auto; padding:12px 30px; border:none; border-radius:40px;
+            background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; font-size:16px;
+            cursor:pointer; transition:0.3s;
+        }
+        .game-restart:hover { transform:scale(1.05); box-shadow:0 8px 30px rgba(124,58,237,0.4); }
         .weather-widget {
-            background:rgba(255,255,255,0.02);
-            border-radius:20px;
-            padding:20px;
-            text-align:center;
-            border:1px solid rgba(255,255,255,0.03);
-            transition:background 0.4s,border-color 0.4s;
+            background:rgba(255,255,255,0.02); border-radius:20px; padding:20px; text-align:center;
+            border:1px solid rgba(255,255,255,0.03); transition:background 0.4s,border-color 0.4s;
         }
         body.light .weather-widget { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.03); }
         .weather-city { font-size:20px; color:#fff; transition:color 0.4s; }
@@ -411,27 +291,13 @@
         .weather-temp { font-size:48px; font-weight:700; color:#a78bfa; }
         .weather-desc { color:rgba(255,255,255,0.4); transition:color 0.4s; }
         body.light .weather-desc { color:rgba(0,0,0,0.4); }
-
-        /* ===== КОНТАКТЫ ===== */
         .social-wrap {
-            display:flex;
-            justify-content:center;
-            flex-wrap:wrap;
-            gap:12px;
-            margin-top:8px;
+            display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:8px;
         }
         .social-link {
-            display:inline-flex;
-            align-items:center;
-            gap:8px;
-            padding:10px 26px;
-            border-radius:40px;
-            background:rgba(255,255,255,0.02);
-            color:rgba(255,255,255,0.5);
-            text-decoration:none;
-            border:1px solid rgba(255,255,255,0.04);
-            transition:0.3s;
-            font-size:14px;
+            display:inline-flex; align-items:center; gap:8px; padding:10px 26px; border-radius:40px;
+            background:rgba(255,255,255,0.02); color:rgba(255,255,255,0.5); text-decoration:none;
+            border:1px solid rgba(255,255,255,0.04); transition:0.3s; font-size:14px;
         }
         body.light .social-link { background:rgba(0,0,0,0.02); color:rgba(0,0,0,0.4); border-color:rgba(0,0,0,0.04); }
         .social-link:hover { background:rgba(255,255,255,0.04); color:#fff; transform:translateY(-3px); }
@@ -440,87 +306,45 @@
         .social-link.inst:hover { border-color:#e4405f; color:#e4405f; }
         .social-link.yt:hover { border-color:#ff0000; color:#ff0000; }
         .social-link.email:hover { border-color:#fbbf24; color:#fbbf24; }
-
-        /* ===== АДМИНКА ===== */
         .admin-login { text-align:center; padding:20px 0; }
         .admin-login input {
-            padding:10px 16px;
-            border-radius:30px;
-            border:1px solid rgba(255,255,255,0.1);
-            background:rgba(255,255,255,0.03);
-            color:#fff;
-            font-size:16px;
-            outline:none;
-            font-family:inherit;
-            width:200px;
-            transition:border-color 0.4s,background 0.4s,color 0.4s;
+            padding:10px 16px; border-radius:30px; border:1px solid rgba(255,255,255,0.1);
+            background:rgba(255,255,255,0.03); color:#fff; font-size:16px; outline:none; font-family:inherit;
+            width:200px; transition:border-color 0.4s,background 0.4s,color 0.4s;
         }
         body.light .admin-login input { border-color:rgba(0,0,0,0.1); background:rgba(0,0,0,0.02); color:#000; }
         .admin-login button {
-            padding:10px 24px;
-            border-radius:30px;
-            border:none;
-            background:linear-gradient(135deg,#7c3aed,#a78bfa);
-            color:#fff;
-            font-size:16px;
-            cursor:pointer;
-            font-family:inherit;
-            margin-left:10px;
+            padding:10px 24px; border-radius:30px; border:none;
+            background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; font-size:16px;
+            cursor:pointer; font-family:inherit; margin-left:10px;
         }
         .admin-content { display:none; }
         .admin-content .stat {
-            background:rgba(255,255,255,0.02);
-            border-radius:16px;
-            padding:16px 20px;
-            margin-bottom:16px;
-            border:1px solid rgba(255,255,255,0.03);
-            transition:background 0.4s,border-color 0.4s;
+            background:rgba(255,255,255,0.02); border-radius:16px; padding:16px 20px; margin-bottom:16px;
+            border:1px solid rgba(255,255,255,0.03); transition:background 0.4s,border-color 0.4s;
         }
         body.light .admin-content .stat { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.03); }
         .admin-content .stat h4 { color:#a78bfa; margin-bottom:8px; }
         .admin-content .stat p { font-size:18px; color:#fff; transition:color 0.4s; }
         body.light .admin-content .stat p { color:#111; }
         .admin-content textarea {
-            width:100%;
-            padding:12px;
-            border-radius:16px;
-            border:1px solid rgba(255,255,255,0.1);
-            background:rgba(255,255,255,0.03);
-            color:#fff;
-            font-size:14px;
-            font-family:inherit;
-            resize:vertical;
-            min-height:80px;
-            outline:none;
+            width:100%; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,0.1);
+            background:rgba(255,255,255,0.03); color:#fff; font-size:14px; font-family:inherit;
+            resize:vertical; min-height:80px; outline:none;
             transition:border-color 0.4s,background 0.4s,color 0.4s;
         }
         body.light .admin-content textarea { border-color:rgba(0,0,0,0.1); background:rgba(0,0,0,0.02); color:#000; }
         .admin-content .send-btn {
-            padding:10px 30px;
-            border-radius:30px;
-            border:none;
-            background:linear-gradient(135deg,#7c3aed,#a78bfa);
-            color:#fff;
-            font-size:16px;
-            cursor:pointer;
-            font-family:inherit;
-            margin-top:10px;
+            padding:10px 30px; border-radius:30px; border:none;
+            background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; font-size:16px;
+            cursor:pointer; font-family:inherit; margin-top:10px;
         }
         .admin-error { color:#f87171; display:none; }
-
-        /* ===== РЕГИСТРАЦИЯ ===== */
         .auth {
-            position:relative;
-            z-index:1;
-            max-width:420px;
-            width:100%;
-            background:rgba(255,255,255,0.03);
-            backdrop-filter:blur(24px);
-            border-radius:32px;
-            padding:44px 34px;
-            border:1px solid rgba(255,255,255,0.04);
-            text-align:center;
-            transition:background 0.4s,border-color 0.4s;
+            position:relative; z-index:1; max-width:420px; width:100%;
+            background:rgba(255,255,255,0.03); backdrop-filter:blur(24px); border-radius:32px;
+            padding:44px 34px; border:1px solid rgba(255,255,255,0.04);
+            text-align:center; transition:background 0.4s,border-color 0.4s;
         }
         body.light .auth { background:rgba(255,255,255,0.7); border-color:rgba(0,0,0,0.04); }
         .auth.hidden { display:none; }
@@ -529,17 +353,9 @@
         .auth .sub { color:rgba(255,255,255,0.3); font-size:16px; margin-bottom:28px; transition:color 0.4s; }
         body.light .auth .sub { color:rgba(0,0,0,0.3); }
         .auth input {
-            width:100%;
-            padding:14px 18px;
-            margin-bottom:14px;
-            border-radius:16px;
-            border:1px solid rgba(255,255,255,0.04);
-            background:rgba(255,255,255,0.02);
-            color:#fff;
-            font-size:15px;
-            outline:none;
-            font-family:inherit;
-            transition:0.3s;
+            width:100%; padding:14px 18px; margin-bottom:14px; border-radius:16px;
+            border:1px solid rgba(255,255,255,0.04); background:rgba(255,255,255,0.02);
+            color:#fff; font-size:15px; outline:none; font-family:inherit; transition:0.3s;
         }
         body.light .auth input { border-color:rgba(0,0,0,0.04); background:rgba(0,0,0,0.02); color:#000; }
         .auth input::placeholder { color:rgba(255,255,255,0.15); }
@@ -547,135 +363,42 @@
         .auth input:focus { border-color:rgba(167,139,250,0.3); background:rgba(255,255,255,0.04); }
         body.light .auth input:focus { border-color:rgba(124,58,237,0.3); }
         .auth .btn-auth {
-            width:100%;
-            padding:14px;
-            border:none;
-            border-radius:16px;
-            background:linear-gradient(135deg,#7c3aed,#a78bfa);
-            color:#fff;
-            font-size:17px;
-            font-weight:600;
-            cursor:pointer;
-            transition:0.3s;
-            font-family:inherit;
-            box-shadow:0 8px 30px rgba(124,58,237,0.15);
+            width:100%; padding:14px; border:none; border-radius:16px;
+            background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; font-size:17px; font-weight:600;
+            cursor:pointer; transition:0.3s; font-family:inherit; box-shadow:0 8px 30px rgba(124,58,237,0.15);
         }
         .auth .btn-auth:hover { transform:scale(1.02); box-shadow:0 12px 40px rgba(124,58,237,0.25); }
         .auth .error { color:#f87171; font-size:13px; margin-top:12px; display:none; }
         .auth .error.show { display:block; }
-
         .main-wrap { display:none; }
         .main-wrap.show { display:block; width:100%; max-width:1000px; }
-
         .scroll-top {
-            position:fixed;
-            bottom:30px;
-            right:30px;
-            z-index:1000;
-            width:50px;
-            height:50px;
-            border-radius:50%;
-            border:1px solid rgba(255,255,255,0.05);
-            background:rgba(255,255,255,0.03);
-            backdrop-filter:blur(8px);
-            color:#fff;
-            font-size:24px;
-            cursor:pointer;
-            display:none;
-            align-items:center;
-            justify-content:center;
-            transition:0.3s;
+            position:fixed; bottom:30px; right:30px; z-index:1000; width:50px; height:50px;
+            border-radius:50%; border:1px solid rgba(255,255,255,0.05);
+            background:rgba(255,255,255,0.03); backdrop-filter:blur(8px); color:#fff; font-size:24px;
+            cursor:pointer; display:none; align-items:center; justify-content:center; transition:0.3s;
             box-shadow:0 8px 25px rgba(0,0,0,0.3);
         }
         body.light .scroll-top { border-color:rgba(0,0,0,0.05); background:rgba(255,255,255,0.6); color:#000; }
         .scroll-top:hover { transform:scale(1.1); background:rgba(124,58,237,0.2); }
         .scroll-top.show { display:flex; }
-
         .music-btn {
-            position:fixed;
-            bottom:30px;
-            left:30px;
-            z-index:1000;
-            width:50px;
-            height:50px;
-            border-radius:50%;
-            border:1px solid rgba(255,255,255,0.05);
-            background:rgba(255,255,255,0.03);
-            backdrop-filter:blur(8px);
-            color:#fff;
-            font-size:24px;
-            cursor:pointer;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            transition:0.3s;
+            position:fixed; bottom:30px; left:30px; z-index:1000; width:50px; height:50px;
+            border-radius:50%; border:1px solid rgba(255,255,255,0.05);
+            background:rgba(255,255,255,0.03); backdrop-filter:blur(8px); color:#fff; font-size:24px;
+            cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.3s;
             box-shadow:0 8px 25px rgba(0,0,0,0.3);
         }
         body.light .music-btn { border-color:rgba(0,0,0,0.05); background:rgba(255,255,255,0.6); color:#000; }
         .music-btn:hover { transform:scale(1.1); background:rgba(124,58,237,0.2); }
-
         .scroll-animate { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
         .scroll-animate.visible { opacity:1; transform:translateY(0); }
-
-        /* ===== ИГРА (КРЕСТИКИ-НОЛИКИ) ===== */
-        .game-board {
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:12px;
-            max-width:360px;
-            margin:20px auto;
-        }
-        .game-cell {
-            aspect-ratio:1;
-            background:rgba(255,255,255,0.04);
-            border-radius:20px;
-            border:1px solid rgba(255,255,255,0.08);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:60px;
-            font-weight:700;
-            color:#fff;
-            cursor:pointer;
-            transition:all 0.2s;
-            box-shadow:0 4px 20px rgba(0,0,0,0.2);
-        }
-        body.light .game-cell { background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.05); color:#111; }
-        .game-cell:hover { background:rgba(255,255,255,0.08); transform:scale(1.02); }
-        .game-cell.x { color:#a78bfa; text-shadow:0 0 20px rgba(167,139,250,0.5); }
-        .game-cell.o { color:#f5576c; text-shadow:0 0 20px rgba(245,87,108,0.5); }
-        .game-status {
-            text-align:center;
-            font-size:20px;
-            color:#fff;
-            margin:10px 0;
-        }
-        body.light .game-status { color:#111; }
-        .game-restart {
-            display:block;
-            margin:10px auto;
-            padding:12px 30px;
-            border:none;
-            border-radius:40px;
-            background:linear-gradient(135deg,#7c3aed,#a78bfa);
-            color:#fff;
-            font-size:16px;
-            cursor:pointer;
-            transition:0.3s;
-        }
-        .game-restart:hover { transform:scale(1.05); box-shadow:0 8px 30px rgba(124,58,237,0.4); }
-
         .footer {
-            margin-top:32px;
-            padding-top:18px;
-            border-top:1px solid rgba(255,255,255,0.03);
-            text-align:center;
-            font-size:12px;
-            color:rgba(255,255,255,0.1);
+            margin-top:32px; padding-top:18px; border-top:1px solid rgba(255,255,255,0.03);
+            text-align:center; font-size:12px; color:rgba(255,255,255,0.1);
             transition:border-color 0.4s,color 0.4s;
         }
         body.light .footer { border-top-color:rgba(0,0,0,0.03); color:rgba(0,0,0,0.1); }
-
         @media (max-width:500px) {
             .card { padding:24px 16px; }
             .greeting { font-size:28px; }
@@ -687,7 +410,7 @@
 </head>
 <body>
 
-    <!-- ФОН (шары и звёзды) -->
+    <!-- ФОН -->
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
     <div class="orb orb3"></div>
@@ -699,9 +422,6 @@
     <!-- КНОПКИ -->
     <button class="scroll-top" id="scrollTopBtn">⬆</button>
     <button class="music-btn" id="musicBtn">🔇</button>
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_5c7c8b6d6e.mp3" type="audio/mpeg">
-    </audio>
 
     <!-- РЕГИСТРАЦИЯ -->
     <div class="auth" id="authBox">
@@ -819,7 +539,7 @@
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
 
-            <!-- ИГРА (КРЕСТИКИ-НОЛИКИ) -->
+            <!-- ИГРА -->
             <div class="page" id="page-game">
                 <h3 style="font-size:24px;color:var(--text-color, #fff);margin-bottom:18px;">🎮 Крестики-нолики</h3>
                 <div class="game-status" id="gameStatus">Ваш ход (X)</div>
@@ -885,8 +605,10 @@
 
     <script>
         // =============================================
-        // 1. ЗВЁЗДЫ
+        // ЗВЁЗДЫ, ТОСТЫ, РЕГИСТРАЦИЯ, МЕНЮ, ТЕКСТ, СЛАЙДЕР, ИГРА, ПОГОДА, АДМИНКА, ТЕМА, КНОПКА ВВЕРХ
+        // (все как в прошлом коде, я привожу их полностью для работоспособности)
         // =============================================
+
         (function() {
             const container = document.getElementById('stars');
             for (let i = 0; i < 120; i++) {
@@ -901,9 +623,6 @@
             }
         })();
 
-        // =============================================
-        // 2. ТОСТЫ
-        // =============================================
         function showToast(message, emoji = '✨') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -929,9 +648,6 @@
             }, 1000);
         });
 
-        // =============================================
-        // 3. РЕГИСТРАЦИЯ
-        // =============================================
         (function() {
             const authBox = document.getElementById('authBox');
             const mainWrap = document.getElementById('mainWrap');
@@ -1009,9 +725,6 @@
             checkUser();
         })();
 
-        // =============================================
-        // 4. МЕНЮ
-        // =============================================
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1045,9 +758,6 @@
             });
         });
 
-        // =============================================
-        // 5. АНИМИРОВАННЫЙ ТЕКСТ
-        // =============================================
         (function() {
             const text = "Привет, я Ziros";
             let index = 0;
@@ -1062,9 +772,6 @@
             setTimeout(type, 500);
         })();
 
-        // =============================================
-        // 6. СЛАЙДЕР
-        // =============================================
         (function() {
             const track = document.getElementById('sliderTrack');
             const slides = track.querySelectorAll('.slider-slide');
@@ -1099,9 +806,6 @@
             setInterval(() => { goTo(currentIndex + 1); }, 5000);
         })();
 
-        // =============================================
-        // 7. ИГРА КРЕСТИКИ-НОЛИКИ
-        // =============================================
         (function() {
             const board = document.getElementById('gameBoard');
             const cells = board.querySelectorAll('.game-cell');
@@ -1171,7 +875,6 @@
                 if (!gameActive || currentPlayer !== 'O') return;
                 const empty = boardState.map((v,i) => v === null ? i : null).filter(v => v !== null);
                 if (empty.length === 0) return;
-                // Простой AI: случайный ход
                 const rand = empty[Math.floor(Math.random() * empty.length)];
                 makeMove(rand, 'O');
             }
@@ -1197,9 +900,6 @@
             resetGame();
         })();
 
-        // =============================================
-        // 8. ПОГОДА
-        // =============================================
         (function() {
             const city = 'Bishkek';
             const tempEl = document.getElementById('weatherTemp');
@@ -1223,9 +923,6 @@
                 });
         })();
 
-        // =============================================
-        // 9. АНИМАЦИИ ПРИ СКРОЛЛЕ
-        // =============================================
         (function() {
             const elements = document.querySelectorAll('.scroll-animate');
             const observer = new IntersectionObserver((entries) => {
@@ -1238,9 +935,6 @@
             elements.forEach(el => observer.observe(el));
         })();
 
-        // =============================================
-        // 10. АДМИНКА
-        // =============================================
         (function() {
             const adminLogin = document.getElementById('adminLogin');
             const adminContent = document.getElementById('adminContent');
@@ -1307,9 +1001,6 @@
             });
         })();
 
-        // =============================================
-        // 11. ТЁМНАЯ/СВЕТЛАЯ ТЕМА
-        // =============================================
         (function() {
             const themeBtn = document.getElementById('themeBtn');
             const body = document.body;
@@ -1334,9 +1025,6 @@
             });
         })();
 
-        // =============================================
-        // 12. КНОПКА НАВЕРХ
-        // =============================================
         (function() {
             const btn = document.getElementById('scrollTopBtn');
             window.addEventListener('scroll', function() {
@@ -1352,45 +1040,93 @@
         })();
 
         // =============================================
-        // 13. МУЗЫКА
+        // НОВАЯ МУЗЫКА – ГЕНЕРАТОР МЕЛОДИИ (Web Audio)
         // =============================================
         (function() {
             const musicBtn = document.getElementById('musicBtn');
-            const audio = document.getElementById('bgMusic');
-            let playing = false;
+            let audioCtx = null;
+            let isPlaying = false;
+            let oscNodes = [];
+            let gainNode = null;
 
-            musicBtn.addEventListener('click', function() {
-                if (playing) {
-                    audio.pause();
-                    musicBtn.textContent = '🔇';
-                    playing = false;
-                } else {
-                    audio.play().then(() => {
-                        musicBtn.textContent = '🔊';
-                        playing = true;
-                    }).catch(() => {
-                        showToast('Музыка не загружается, но сайт работает!', '🎵');
-                        // запасной вариант: короткий звук
-                        try {
-                            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                            const osc = ctx.createOscillator();
-                            const gain = ctx.createGain();
-                            osc.connect(gain);
-                            gain.connect(ctx.destination);
-                            osc.frequency.value = 440;
-                            gain.gain.value = 0.1;
-                            osc.start();
-                            setTimeout(() => osc.stop(), 500);
-                            showToast('Тестовая мелодия', '🔊');
-                        } catch (e) {}
-                    });
+            function playTone(freq, duration, time, gainVal = 0.15) {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(gainVal, time);
+                gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+                osc.start(time);
+                osc.stop(time + duration);
+                oscNodes.push(osc);
+                return osc;
+            }
+
+            function playMelody() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
-            });
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                if (isPlaying) {
+                    // Остановить
+                    oscNodes.forEach(osc => {
+                        try { osc.stop(); } catch(e) {}
+                    });
+                    oscNodes = [];
+                    if (gainNode) {
+                        try { gainNode.disconnect(); } catch(e) {}
+                        gainNode = null;
+                    }
+                    isPlaying = false;
+                    musicBtn.textContent = '🔇';
+                    showToast('Музыка выключена', '🔇');
+                    return;
+                }
+
+                // Запуск мелодии
+                const now = audioCtx.currentTime;
+                const notes = [
+                    [523, 0.15], [587, 0.15], [659, 0.15], [784, 0.15],
+                    [880, 0.2], [784, 0.15], [659, 0.15], [587, 0.15],
+                    [523, 0.3], [659, 0.3], [784, 0.3], [880, 0.4]
+                ];
+                let time = now;
+                notes.forEach(([freq, dur]) => {
+                    playTone(freq, dur, time);
+                    time += dur + 0.05;
+                });
+                isPlaying = true;
+                musicBtn.textContent = '🔊';
+                showToast('🎵 Мелодия играет', '🎵');
+
+                // Автоматически выключить через 5 секунд (после окончания)
+                setTimeout(() => {
+                    if (isPlaying) {
+                        oscNodes.forEach(osc => {
+                            try { osc.stop(); } catch(e) {}
+                        });
+                        oscNodes = [];
+                        isPlaying = false;
+                        musicBtn.textContent = '🔇';
+                        showToast('Мелодия закончилась', '⏹️');
+                    }
+                }, (notes.reduce((s, [,d]) => s + d + 0.05, 0) + 0.5) * 1000);
+            }
+
+            musicBtn.addEventListener('click', playMelody);
+
+            // Если звук не работает, пробуем восстановить контекст по клику
+            document.addEventListener('click', function() {
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            }, { once: false });
         })();
 
-        // =============================================
-        // 14. АНИМАЦИЯ ПРОГРЕСС-БАРОВ
-        // =============================================
         function animateSkills() {
             const fills = document.querySelectorAll('.skill-fill');
             fills.forEach(fill => {
