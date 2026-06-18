@@ -475,6 +475,71 @@
             color: rgba(255,255,255,0.1);
         }
 
+        /* ===== АДМИНКА ===== */
+        .admin-login {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .admin-login input {
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            font-family: inherit;
+            width: 200px;
+        }
+        .admin-login button {
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-left: 10px;
+        }
+        .admin-content {
+            display: none;
+        }
+        .admin-content .stat {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .admin-content .stat h4 { color: #a78bfa; margin-bottom: 8px; }
+        .admin-content .stat p { font-size: 18px; color: #fff; }
+        .admin-content textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            outline: none;
+        }
+        .admin-content .send-btn {
+            padding: 10px 30px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+        .admin-error { color: #f87171; display: none; }
+
         /* ===== РЕГИСТРАЦИЯ ===== */
         .auth {
             position: relative;
@@ -590,6 +655,7 @@
                 <button class="nav-btn" data-page="game">Игра</button>
                 <button class="nav-btn" data-page="weather">Погода</button>
                 <button class="nav-btn" data-page="contacts">Контакты</button>
+                <button class="nav-btn" data-page="admin">🔐 Админка</button>
             </div>
 
             <!-- ===== СТРАНИЦЫ ===== -->
@@ -670,7 +736,7 @@
                 </div>
             </div>
 
-            <!-- ПОГОДА (БИШКЕК) -->
+            <!-- ПОГОДА -->
             <div class="page" id="page-weather">
                 <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">🌤 Погода</h3>
                 <div class="weather-widget scroll-animate" id="weatherWidget">
@@ -689,6 +755,38 @@
                     <a href="https://instagram.com/danis_mone.y" class="social-link inst" target="_blank">📷 Instagram</a>
                     <a href="https://youtube.com/c/MrBeast" class="social-link yt" target="_blank">▶️ YouTube</a>
                     <a href="mailto:hdhhhdhd002@gmail.com" class="social-link email" target="_blank">✉️ Email</a>
+                </div>
+            </div>
+
+            <!-- ===== АДМИНКА ===== -->
+            <div class="page" id="page-admin">
+                <h3 style="font-size:24px;color:#fff;margin-bottom:18px;">🔐 Админ-панель</h3>
+                <div class="admin-login" id="adminLogin">
+                    <input type="password" id="adminPassword" placeholder="Введите пароль" />
+                    <button id="adminLoginBtn">Войти</button>
+                    <p class="admin-error" id="adminError">Неверный пароль</p>
+                </div>
+                <div class="admin-content" id="adminContent">
+                    <div class="stat">
+                        <h4>👥 Онлайн сейчас</h4>
+                        <p>
+                            <!-- Виджет онлайн-счётчика от Whos.amung.us -->
+                            <script type="text/javascript" src="//whos.amung.us/pingjs/?k=your_widget_key&t=Ziros%20Site" defer></script>
+                            <span id="whos-amung-us">Загрузка...</span>
+                        </p>
+                    </div>
+                    <div class="stat">
+                        <h4>📊 Зарегистрировано пользователей (локально)</h4>
+                        <p id="registeredCount">0</p>
+                        <p style="font-size:12px;color:rgba(255,255,255,0.3);">*Учитываются только те, кто вводил имя на этом устройстве</p>
+                    </div>
+                    <div class="stat">
+                        <h4>✉️ Отправить анонимное сообщение всем</h4>
+                        <p style="font-size:14px;color:rgba(255,255,255,0.4);">Сообщение придёт вам на почту (через Formspree)</p>
+                        <textarea id="adminMessage" placeholder="Текст сообщения..."></textarea>
+                        <button class="send-btn" id="adminSendBtn">Отправить</button>
+                        <p id="adminSendResult" style="margin-top:8px;color:#a78bfa;"></p>
+                    </div>
                 </div>
             </div>
 
@@ -715,7 +813,7 @@
         })();
 
         // =============================================
-        // 2. ТОСТЫ (УВЕДОМЛЕНИЯ)
+        // 2. ТОСТЫ
         // =============================================
         function showToast(message, emoji = '✨') {
             const container = document.getElementById('toastContainer');
@@ -736,7 +834,6 @@
             }, 5000);
         }
 
-        // Показываем приветственный тост при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 showToast('Добро пожаловать на сайт! 👋', '👋');
@@ -767,6 +864,8 @@
                     if (heroName) heroName.textContent = 'Привет, я ' + name;
                     if (aboutName) aboutName.textContent = name;
                     if (headerName) headerName.textContent = name;
+                    // Обновляем счётчик зарегистрированных (локальный)
+                    updateRegisteredCount();
                     setTimeout(() => showToast('С возвращением, ' + name + '!', '👤'), 500);
                 } else {
                     authBox.classList.remove('hidden');
@@ -774,9 +873,18 @@
                 }
             }
 
+            function updateRegisteredCount() {
+                // Считаем, сколько раз сохранялись данные (это не глобально)
+                let count = localStorage.getItem('registeredCount') || 0;
+                document.getElementById('registeredCount').textContent = count;
+            }
+
             function saveUser(name, email) {
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userEmail', email);
+                // Увеличиваем счётчик регистраций (локальный)
+                let count = parseInt(localStorage.getItem('registeredCount') || 0) + 1;
+                localStorage.setItem('registeredCount', count);
                 checkUser();
                 showToast('Добро пожаловать, ' + name + '!', '🎉');
             }
@@ -835,7 +943,8 @@
                 gallery: 'Галерея',
                 game: 'Игра',
                 weather: 'Погода',
-                contacts: 'Контакты'
+                contacts: 'Контакты',
+                admin: 'Админка'
             };
             if (names[pageId]) {
                 showToast('Переход на страницу: ' + names[pageId], '📌');
@@ -931,7 +1040,7 @@
         // 7. ПОГОДА (БИШКЕК)
         // =============================================
         (function() {
-            const city = 'Bishkek'; // Теперь Бишкек!
+            const city = 'Bishkek';
             const tempEl = document.getElementById('weatherTemp');
             const descEl = document.getElementById('weatherDesc');
             const cityEl = document.getElementById('weatherCity');
@@ -967,6 +1076,82 @@
                 });
             }, { threshold: 0.1 });
             elements.forEach(el => observer.observe(el));
+        })();
+
+        // =============================================
+        // 9. АДМИНКА
+        // =============================================
+        (function() {
+            const adminLogin = document.getElementById('adminLogin');
+            const adminContent = document.getElementById('adminContent');
+            const adminPassword = document.getElementById('adminPassword');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminError = document.getElementById('adminError');
+            const adminSendBtn = document.getElementById('adminSendBtn');
+            const adminMessage = document.getElementById('adminMessage');
+            const adminSendResult = document.getElementById('adminSendResult');
+
+            // Пароль (можешь сменить)
+            const ADMIN_PASSWORD = 'admin123';
+
+            // Проверяем, был ли уже вход
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                adminLogin.style.display = 'none';
+                adminContent.style.display = 'block';
+            }
+
+            adminLoginBtn.addEventListener('click', function() {
+                if (adminPassword.value === ADMIN_PASSWORD) {
+                    adminLogin.style.display = 'none';
+                    adminContent.style.display = 'block';
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    showToast('Вход в админ-панель выполнен', '🔐');
+                } else {
+                    adminError.style.display = 'block';
+                }
+            });
+
+            adminPassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    adminLoginBtn.click();
+                }
+            });
+
+            // Отправка анонимного сообщения через Formspree
+            adminSendBtn.addEventListener('click', function() {
+                const message = adminMessage.value.trim();
+                if (!message) {
+                    adminSendResult.textContent = 'Напишите текст сообщения.';
+                    adminSendResult.style.color = '#f87171';
+                    return;
+                }
+
+                // Замени YOUR_FORM_ID на свой ID от Formspree
+                const formspreeUrl = 'https://formspree.io/f/YOUR_FORM_ID';
+
+                fetch(formspreeUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message, _subject: 'Анонимное сообщение с сайта' })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        adminSendResult.textContent = '✅ Сообщение отправлено! (Придёт на почту)';
+                        adminSendResult.style.color = '#a78bfa';
+                        adminMessage.value = '';
+                        showToast('Анонимное сообщение отправлено', '📨');
+                    } else {
+                        adminSendResult.textContent = '❌ Ошибка отправки. Проверьте Formspree ID.';
+                        adminSendResult.style.color = '#f87171';
+                    }
+                })
+                .catch(() => {
+                    adminSendResult.textContent = '❌ Ошибка сети. Попробуйте позже.';
+                    adminSendResult.style.color = '#f87171';
+                });
+            });
         })();
     </script>
 </body>
