@@ -1,4 +1,4 @@
-2<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
@@ -54,6 +54,55 @@
         body.light .theme-btn { border-color: #c0d0c0; color: #1e2a1e; }
         body.light .project-card { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.03); }
         body.light .project-card:hover { background: rgba(0,0,0,0.04); border-color: rgba(124,58,237,0.1); }
+        body.light .particle { background: rgba(0,0,0,0.1); }
+        body.light .toast { background: rgba(255,255,255,0.8); color: #111; border-color: rgba(0,0,0,0.04); }
+
+        /* ===== ТОСТЫ ===== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 320px;
+            width: 100%;
+        }
+        .toast {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 14px 20px;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            animation: slideIn 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.hide {
+            animation: slideOut 0.4s ease forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(40px); }
+        }
+        .toast .emoji { font-size: 20px; }
+        .toast .close {
+            margin-left: auto;
+            cursor: pointer;
+            opacity: 0.4;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+        .toast .close:hover { opacity: 1; }
 
         /* ===== ФОН (ШАРЫ) ===== */
         .bg-glow {
@@ -89,8 +138,8 @@
             100% { transform: translate(60px,40px) scale(1.2); }
         }
 
-        /* ===== ЗВЁЗДЫ ===== */
-        .stars {
+        /* ===== ЧАСТИЦЫ (НОВЫЙ ФОН) ===== */
+        .particles-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -98,20 +147,6 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            overflow: hidden;
-        }
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle 3s ease-in-out infinite alternate;
-        }
-        body.light .star { background: #888; }
-        @keyframes twinkle {
-            0% { opacity: 0.2; }
-            100% { opacity: 1; }
         }
 
         /* ===== КАРТОЧКА ===== */
@@ -410,6 +445,138 @@
             color: #fff;
         }
 
+        /* ===== СЛАЙДЕР (ГАЛЕРЕЯ) ===== */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            margin: 16px 0;
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slider-slide {
+            min-width: 100%;
+            aspect-ratio: 16/9;
+            background: rgba(255,255,255,0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            border-radius: 20px;
+            color: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: 0.3s;
+            font-family: inherit;
+            backdrop-filter: blur(8px);
+        }
+        .slider-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .slider-btn.prev { left: 10px; }
+        .slider-btn.next { right: 10px; }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .slider-dot.active { background: #7c3aed; width: 20px; border-radius: 10px; }
+
+        /* ===== КАЛЬКУЛЯТОР ===== */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 16px auto;
+        }
+        .calc-display {
+            grid-column: span 4;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 28px;
+            text-align: right;
+            color: #fff;
+            min-height: 70px;
+            border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+        }
+        .calc-btn {
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.02);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .calc-btn:hover {
+            background: rgba(255,255,255,0.06);
+        }
+        .calc-btn.op {
+            background: rgba(167,139,250,0.1);
+            color: #a78bfa;
+        }
+        .calc-btn.eq {
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            color: #fff;
+        }
+
+        /* ===== РЕСУРСЫ ===== */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .resource-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.04);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .resource-card:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(167,139,250,0.1);
+        }
+        .resource-card .icon { font-size: 30px; }
+        .resource-card h4 { font-size: 16px; color: #fff; margin: 8px 0 4px; }
+        .resource-card p { font-size: 13px; color: rgba(255,255,255,0.3); }
+        .resource-card a { color: #a78bfa; text-decoration: none; font-size: 14px; }
+
         /* ===== КОНТАКТЫ ===== */
         .social-wrap {
             display: flex;
@@ -486,6 +653,61 @@
             box-shadow: 0 8px 30px rgba(124,58,237,0.2);
         }
 
+        /* ===== ТАЙМЕР ОБРАТНОГО ОТСЧЁТА ===== */
+        .countdown-area {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.04);
+            margin: 16px 0;
+        }
+        .countdown-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: #c4b5fd;
+            letter-spacing: 4px;
+            margin: 10px 0;
+        }
+        .countdown-input-area {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .countdown-input-area input {
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.04);
+            background: rgba(255,255,255,0.02);
+            color: #fff;
+            font-size: 16px;
+            width: 80px;
+            text-align: center;
+            outline: none;
+            font-family: inherit;
+        }
+        .countdown-input-area input:focus {
+            border-color: rgba(167,139,250,0.3);
+        }
+
+        /* ===== ФАКТЫ ===== */
+        .fact-box {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.04);
+            margin: 16px 0;
+        }
+        .fact-text {
+            font-size: 20px;
+            color: #e0d7ff;
+            margin: 10px 0;
+            min-height: 60px;
+        }
+
         /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
         .music-btn {
             position: fixed;
@@ -549,15 +771,21 @@
             .logo-main { font-size: 18px; }
             .logo-icon { width: 38px; height: 38px; font-size: 20px; }
             .project-grid { grid-template-columns: 1fr; }
+            .calc-grid { max-width: 100%; }
+            .countdown-display { font-size: 32px; }
+            .slider-slide { font-size: 40px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== ТОСТЫ ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- ===== ФОН ===== -->
     <div class="bg-glow"></div>
     <div class="bg-glow-2"></div>
-    <div class="stars" id="stars"></div>
+    <canvas class="particles-canvas" id="particlesCanvas"></canvas>
 
     <!-- ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== -->
     <button class="music-btn" id="musicBtn">🔇</button>
@@ -588,6 +816,9 @@
             <button class="nav-btn" data-page="projects">Проекты</button>
             <button class="nav-btn" data-page="blog">Блог</button>
             <button class="nav-btn" data-page="games">Игры</button>
+            <button class="nav-btn" data-page="gallery">Галерея</button>
+            <button class="nav-btn" data-page="tools">Инструменты</button>
+            <button class="nav-btn" data-page="resources">Ресурсы</button>
             <button class="nav-btn" data-page="contacts">Контакты</button>
         </div>
 
@@ -707,6 +938,102 @@
             </div>
         </div>
 
+        <!-- ===== ГАЛЕРЕЯ (СЛАЙДЕР) ===== -->
+        <div class="page" id="page-gallery">
+            <h2>🖼️ Галерея</h2>
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-slide">🌌 Космос</div>
+                    <div class="slider-slide">🚀 Ракета</div>
+                    <div class="slider-slide">🎨 Искусство</div>
+                    <div class="slider-slide">🤖 Робот</div>
+                    <div class="slider-slide">💻 Код</div>
+                </div>
+                <button class="slider-btn prev" id="sliderPrev">‹</button>
+                <button class="slider-btn next" id="sliderNext">›</button>
+            </div>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <!-- ===== ИНСТРУМЕНТЫ ===== -->
+        <div class="page" id="page-tools">
+            <h2>🛠️ Инструменты</h2>
+
+            <!-- Калькулятор -->
+            <h3>Калькулятор</h3>
+            <div class="calc-grid">
+                <div class="calc-display" id="calcDisplay">0</div>
+                <button class="calc-btn" data-value="7">7</button>
+                <button class="calc-btn" data-value="8">8</button>
+                <button class="calc-btn" data-value="9">9</button>
+                <button class="calc-btn op" data-value="/">÷</button>
+                <button class="calc-btn" data-value="4">4</button>
+                <button class="calc-btn" data-value="5">5</button>
+                <button class="calc-btn" data-value="6">6</button>
+                <button class="calc-btn op" data-value="*">×</button>
+                <button class="calc-btn" data-value="1">1</button>
+                <button class="calc-btn" data-value="2">2</button>
+                <button class="calc-btn" data-value="3">3</button>
+                <button class="calc-btn op" data-value="-">−</button>
+                <button class="calc-btn" data-value="0">0</button>
+                <button class="calc-btn" data-value=".">.</button>
+                <button class="calc-btn eq" data-value="=">=</button>
+                <button class="calc-btn op" data-value="+">+</button>
+                <button class="calc-btn" data-value="C" style="grid-column:span 2;">C</button>
+                <button class="calc-btn" data-value="⌫" style="grid-column:span 2;">⌫</button>
+            </div>
+
+            <!-- Таймер обратного отсчёта -->
+            <h3 style="margin-top:30px;">⏱️ Таймер обратного отсчёта</h3>
+            <div class="countdown-area">
+                <div class="countdown-display" id="countdownDisplay">00:00</div>
+                <div class="countdown-input-area">
+                    <input type="number" id="countdownMinutes" placeholder="Мин" min="0" value="1" />
+                    <input type="number" id="countdownSeconds" placeholder="Сек" min="0" max="59" value="0" />
+                    <button class="game-btn" id="countdownStart">▶ Старт</button>
+                    <button class="game-btn secondary" id="countdownReset">⏹ Сброс</button>
+                </div>
+            </div>
+
+            <!-- Случайный факт -->
+            <h3 style="margin-top:30px;">💡 Случайный факт</h3>
+            <div class="fact-box">
+                <div class="fact-text" id="factText">Нажми кнопку, чтобы узнать факт</div>
+                <button class="game-btn" id="factBtn">🔄 Новый факт</button>
+            </div>
+        </div>
+
+        <!-- ===== РЕСУРСЫ ===== -->
+        <div class="page" id="page-resources">
+            <h2>📚 Полезные ресурсы</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="icon">📖</div>
+                    <h4>MDN Web Docs</h4>
+                    <p>Документация по HTML, CSS, JS</p>
+                    <a href="https://developer.mozilla.org/ru/" target="_blank">Перейти</a>
+                </div>
+                <div class="resource-card">
+                    <div class="icon">🎨</div>
+                    <h4>Figma</h4>
+                    <p>Дизайн интерфейсов</p>
+                    <a href="https://figma.com/" target="_blank">Перейти</a>
+                </div>
+                <div class="resource-card">
+                    <div class="icon">📦</div>
+                    <h4>GitHub</h4>
+                    <p>Хостинг кода и проектов</p>
+                    <a href="https://github.com/" target="_blank">Перейти</a>
+                </div>
+                <div class="resource-card">
+                    <div class="icon">⚡</div>
+                    <h4>Netlify</h4>
+                    <p>Деплой сайтов</p>
+                    <a href="https://netlify.com/" target="_blank">Перейти</a>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== КОНТАКТЫ ===== -->
         <div class="page" id="page-contacts">
             <h2>📬 Свяжись со мной</h2>
@@ -736,24 +1063,110 @@
 
     <script>
         // ============================================================
-        // 1. ЗВЁЗДЫ
+        // 1. ЧАСТИЦЫ (НОВЫЙ ФОН)
         // ============================================================
         (function() {
-            const container = document.getElementById('stars');
-            for (let i = 0; i < 120; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = star.style.height = (Math.random() * 2 + 0.5) + 'px';
-                star.style.animationDelay = (Math.random() * 5) + 's';
-                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
-                container.appendChild(star);
+            const canvas = document.getElementById('particlesCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            const particles = [];
+            const COUNT = 80;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
             }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.opacity})`;
+                    ctx.shadowColor = 'rgba(167, 139, 250, 0.1)';
+                    ctx.shadowBlur = 10;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (const p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                // Соединяем близкие частицы
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(167, 139, 250, ${0.05 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
         })();
 
         // ============================================================
-        // 2. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+        // 2. ТОСТЫ
+        // ============================================================
+        function showToast(message, emoji = '✨') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<span class="emoji">${emoji}</span><span>${message}</span><span class="close">✕</span>`;
+            container.appendChild(toast);
+            const close = toast.querySelector('.close');
+            close.addEventListener('click', () => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 400);
+            });
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.add('hide');
+                    setTimeout(() => toast.remove(), 400);
+                }
+            }, 4000);
+        }
+
+        // При загрузке показываем приветствие
+        setTimeout(() => showToast('Добро пожаловать на сайт!', '👋'), 500);
+
+        // ============================================================
+        // 3. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
         // ============================================================
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -762,6 +1175,7 @@
             if (target) target.classList.add('active');
             const btn = document.querySelector(`.nav-btn[data-page="${pageId}"]`);
             if (btn) btn.classList.add('active');
+            showToast('Переход на: ' + pageId, '📌');
         }
 
         document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -771,7 +1185,7 @@
         });
 
         // ============================================================
-        // 3. ТЕМА
+        // 4. ТЕМА
         // ============================================================
         const themeBtn = document.getElementById('themeToggle');
         const body = document.body;
@@ -785,10 +1199,11 @@
             body.classList.toggle('light', !dark);
             themeBtn.textContent = dark ? '🌙' : '☀️';
             localStorage.setItem('theme', dark ? 'dark' : 'light');
+            showToast(dark ? 'Тёмная тема' : 'Светлая тема', dark ? '🌙' : '☀️');
         });
 
         // ============================================================
-        // 4. МУЗЫКА
+        // 5. МУЗЫКА
         // ============================================================
         (function() {
             const btn = document.getElementById('musicBtn');
@@ -800,16 +1215,18 @@
                     audio.pause();
                     btn.textContent = '🔇';
                     playing = false;
+                    showToast('Музыка выключена', '🔇');
                 } else {
                     audio.play().catch(() => {});
                     btn.textContent = '🔊';
                     playing = true;
+                    showToast('Музыка включена', '🎵');
                 }
             });
         })();
 
         // ============================================================
-        // 5. КЛИКЕР
+        // 6. КЛИКЕР
         // ============================================================
         (function() {
             let score = parseInt(localStorage.getItem('clickerScore')) || 0;
@@ -820,17 +1237,19 @@
                 score++;
                 display.textContent = score;
                 localStorage.setItem('clickerScore', score);
+                if (score % 10 === 0) showToast('Уже ' + score + ' кликов!', '🔥');
             });
 
             document.getElementById('clickerReset').addEventListener('click', function() {
                 score = 0;
                 display.textContent = '0';
                 localStorage.setItem('clickerScore', '0');
+                showToast('Счёт сброшен', '🔄');
             });
         })();
 
         // ============================================================
-        // 6. УГАДАЙ ЧИСЛО
+        // 7. УГАДАЙ ЧИСЛО
         // ============================================================
         (function() {
             let secret = Math.floor(Math.random() * 100) + 1;
@@ -843,6 +1262,7 @@
                 const val = parseInt(input.value);
                 if (isNaN(val) || val < 1 || val > 100) {
                     hint.textContent = '⚠️ Введи число от 1 до 100!';
+                    showToast('Ошибка ввода', '⚠️');
                     return;
                 }
                 attempts++;
@@ -851,6 +1271,7 @@
                     hint.textContent = '🎉 Поздравляю! Ты угадал! Это было число ' + secret;
                     hint.style.color = '#4ecdc4';
                     document.getElementById('guessBtn').disabled = true;
+                    showToast('Победа! Число ' + secret, '🏆');
                 } else if (val < secret) {
                     hint.textContent = '⬆️ Больше!';
                     hint.style.color = '#c4b5fd';
@@ -871,6 +1292,7 @@
                 document.getElementById('guessBtn').disabled = false;
                 input.value = '';
                 input.focus();
+                showToast('Новая игра', '🔄');
             });
 
             input.addEventListener('keydown', function(e) {
@@ -881,7 +1303,203 @@
         })();
 
         // ============================================================
-        // 7. СЧЁТЧИК ПОСЕЩЕНИЙ (локальный)
+        // 8. СЛАЙДЕР (ГАЛЕРЕЯ)
+        // ============================================================
+        (function() {
+            const track = document.getElementById('sliderTrack');
+            const slides = track.querySelectorAll('.slider-slide');
+            const prevBtn = document.getElementById('sliderPrev');
+            const nextBtn = document.getElementById('sliderNext');
+            const dotsContainer = document.getElementById('sliderDots');
+            let currentIndex = 0;
+            const total = slides.length;
+
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                dot.dataset.index = i;
+                dot.addEventListener('click', function() {
+                    goTo(parseInt(this.dataset.index));
+                });
+                dotsContainer.appendChild(dot);
+            }
+
+            function goTo(index) {
+                if (index < 0) index = total - 1;
+                if (index >= total) index = 0;
+                currentIndex = index;
+                track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+                document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            prevBtn.addEventListener('click', function() { goTo(currentIndex - 1); });
+            nextBtn.addEventListener('click', function() { goTo(currentIndex + 1); });
+            setInterval(() => { goTo(currentIndex + 1); }, 5000);
+        })();
+
+        // ============================================================
+        // 9. КАЛЬКУЛЯТОР
+        // ============================================================
+        (function() {
+            const display = document.getElementById('calcDisplay');
+            let current = '0', operator = null, prev = '', reset = false;
+
+            function update() {
+                display.textContent = current;
+            }
+
+            function inputDigit(d) {
+                if (reset) {
+                    current = d;
+                    reset = false;
+                } else {
+                    if (current === '0' && d !== '.') current = d;
+                    else current += d;
+                }
+                update();
+            }
+
+            function inputOp(op) {
+                if (operator && !reset) calculate();
+                prev = current;
+                operator = op;
+                reset = true;
+            }
+
+            function calculate() {
+                if (!operator || prev === '') return;
+                const a = parseFloat(prev), b = parseFloat(current);
+                if (isNaN(a) || isNaN(b)) return;
+                let result;
+                switch (operator) {
+                    case '+': result = a + b; break;
+                    case '-': result = a - b; break;
+                    case '*': result = a * b; break;
+                    case '/': result = a / b; break;
+                    default: return;
+                }
+                current = String(result);
+                operator = null;
+                prev = '';
+                reset = true;
+                update();
+            }
+
+            function clearAll() {
+                current = '0';
+                operator = null;
+                prev = '';
+                reset = false;
+                update();
+            }
+
+            function backspace() {
+                if (reset) return;
+                current = current.length > 1 ? current.slice(0, -1) : '0';
+                update();
+            }
+
+            document.querySelectorAll('.calc-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const val = this.dataset.value;
+                    if (!val) return;
+                    if (val >= '0' && val <= '9' || val === '.') inputDigit(val);
+                    else if (val === '+' || val === '-' || val === '*' || val === '/') inputOp(val);
+                    else if (val === '=') calculate();
+                    else if (val === 'C') clearAll();
+                    else if (val === '⌫') backspace();
+                });
+            });
+        })();
+
+        // ============================================================
+        // 10. ТАЙМЕР ОБРАТНОГО ОТСЧЁТА
+        // ============================================================
+        (function() {
+            let countdownInterval = null;
+            let totalSeconds = 0;
+            const display = document.getElementById('countdownDisplay');
+            const minutesInput = document.getElementById('countdownMinutes');
+            const secondsInput = document.getElementById('countdownSeconds');
+
+            function updateDisplay(seconds) {
+                const m = Math.floor(seconds / 60);
+                const s = seconds % 60;
+                display.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+
+            function startCountdown() {
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
+                const mins = parseInt(minutesInput.value) || 0;
+                const secs = parseInt(secondsInput.value) || 0;
+                totalSeconds = mins * 60 + secs;
+                if (totalSeconds <= 0) {
+                    showToast('Введите корректное время', '⚠️');
+                    return;
+                }
+                updateDisplay(totalSeconds);
+                countdownInterval = setInterval(() => {
+                    totalSeconds--;
+                    if (totalSeconds <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownInterval = null;
+                        updateDisplay(0);
+                        showToast('⏰ Время вышло!', '⏰');
+                    } else {
+                        updateDisplay(totalSeconds);
+                    }
+                }, 1000);
+                showToast('Таймер запущен', '⏱️');
+            }
+
+            document.getElementById('countdownStart').addEventListener('click', startCountdown);
+            document.getElementById('countdownReset').addEventListener('click', function() {
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
+                totalSeconds = 0;
+                updateDisplay(0);
+                showToast('Таймер сброшен', '⏹️');
+            });
+        })();
+
+        // ============================================================
+        // 11. СЛУЧАЙНЫЙ ФАКТ
+        // ============================================================
+        (function() {
+            const facts = [
+                'В JavaScript есть тип данных "undefined" и "null".',
+                'Первый сайт в мире был создан в 1991 году.',
+                'HTML расшифровывается как HyperText Markup Language.',
+                'CSS был создан в 1996 году для отделения стиля от структуры.',
+                'Python назван в честь комедийного шоу "Монти Пайтон".',
+                'Git был создан Линусом Торвальдсом в 2005 году.',
+                'В мире более 1.8 миллиарда веб-сайтов.',
+                'Самый популярный язык программирования — JavaScript.',
+                'Первая компьютерная игра была создана в 1962 году.',
+                'Интернет весит примерно 50 граммов (вес электронов).'
+            ];
+
+            const textEl = document.getElementById('factText');
+
+            function showFact() {
+                const random = facts[Math.floor(Math.random() * facts.length)];
+                textEl.textContent = random;
+                showToast('Новый факт', '💡');
+            }
+
+            document.getElementById('factBtn').addEventListener('click', showFact);
+            showFact(); // показать первый факт при загрузке
+        })();
+
+        // ============================================================
+        // 12. СЧЁТЧИК ПОСЕЩЕНИЙ
         // ============================================================
         (function() {
             let count = parseInt(localStorage.getItem('visitorCount')) || 0;
@@ -891,11 +1509,11 @@
         })();
 
         // ============================================================
-        // 8. ФОРМА СВЯЗИ (заглушка)
+        // 13. ФОРМА СВЯЗИ
         // ============================================================
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('✅ Спасибо! Сообщение отправлено (заглушка).');
+            showToast('Спасибо! Сообщение отправлено', '✅');
             this.reset();
         });
     </script>
